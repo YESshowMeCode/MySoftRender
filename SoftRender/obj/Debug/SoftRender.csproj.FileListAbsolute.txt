@@ -1,0 +1,2 @@
+D:\MyGithub\SoftRender\SoftRender\SoftRender\bin\Debug\SoftRender.exe.config
+D:\MyGithub\MySoftRender\MySoftRender\SoftRender\bin\Debug\SoftRender.exe.config
