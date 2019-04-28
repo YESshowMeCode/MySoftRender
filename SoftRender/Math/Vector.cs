@@ -43,6 +43,13 @@ namespace SoftRender.Math
             }
         }
 
+        public void Normalize()
+        {
+            x = x / length;
+            y = y / length;
+            z = z / length;
+        }
+
         public static Vector operator +(Vector right, Vector left)
         {
             Vector vec = new Vector();
@@ -67,6 +74,21 @@ namespace SoftRender.Math
         {
 
             return new Vector(right.x * f, right.y * f, right.z * f);
+        }
+
+        public static Vector operator /(Vector right,float f)
+        {
+            return new Vector(right.x / f, right.y / f, right.z / f);
+        }
+
+        public Vector MultiplyMatrix(Matrix matrix)
+        {
+            Vector vec = new Vector();
+            vec.x = x * matrix[0, 0] + y * matrix[0, 1] + z * matrix[0, 2] + w * matrix[0, 3];
+            vec.y = x * matrix[1, 0] + y * matrix[1, 1] + z * matrix[1, 2] + w * matrix[1, 3];
+            vec.z = x * matrix[2, 0] + y * matrix[2, 1] + z * matrix[2, 1] + w * matrix[2, 3];
+            vec.w = x * matrix[3, 0] + y * matrix[3, 1] + z * matrix[3, 2] + w * matrix[3, 3];
+            return vec;
         }
 
         public static float Dot(Vector right, Vector left)
