@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SoftRender.Math;
 
-namespace SoftRender.Math
+namespace SoftRender.RenderData
 {
     class Color
     {
@@ -12,6 +13,12 @@ namespace SoftRender.Math
         public float _r;
         public float _g;
         public float _b;
+
+
+        public Color()
+        {
+
+        }
 
         public Color(float r, float g, float b)
         {

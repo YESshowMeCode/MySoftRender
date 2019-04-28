@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SoftRender.RenderData;
 
 namespace SoftRender.Math
 {
@@ -12,25 +13,33 @@ namespace SoftRender.Math
         public float y;
         public float z;
 
-        public Vertex()
-        {
 
+        public Vector point;
+
+        public float u, v;
+
+        public Color vexColor;
+
+        public float onePerZ;
+
+
+        public Vertex(Vector point,  float u, float v, Color col)
+        {
+            this.point = point;
+            this.point.w = 1;
+            vexColor = col;
+            onePerZ = 1;
+            this.u = u;
+            this.v = v;
         }
 
-        public Vertex(float x, float y, float z)
+        public Vertex(Vertex vex)
         {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-        }
-
-        public Vertex LerpVertex(Vertex right, Vertex left , float f)
-        {
-            Vertex vex = new Vertex();
-            vex.x = right.x * f + left.x * (1 - f);
-            vex.y = right.y * f + left.y * (1 - f);
-            vex.z = right.z * f + left.z * (1 - f);
-            return vex;
+            point = vex.point;
+            this.vexColor = vex.vexColor;
+            onePerZ = 1;
+            this.u = vex.u;
+            this.v = vex.v;
         }
 
     }
