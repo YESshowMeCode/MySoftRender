@@ -50,16 +50,17 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="RenderData\Color.cs" />
-    <Compile Include="Math\MathUntil.cs" />
-    <Compile Include="Math\Matrix.cs" />
-    <Compile Include="Math\Vector.cs" />
-    <Compile Include="Math\Vertex.cs" />
+    <Compile Include="Render\Camera.cs" />
+    <Compile Include="Render\Color.cs" />
+    <Compile Include="Render\MathUntil.cs" />
+    <Compile Include="Render\Matrix.cs" />
+    <Compile Include="Render\Vector.cs" />
+    <Compile Include="Render\Vertex.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RenderData\Device.cs" />
-    <Compile Include="RenderData\Mesh.cs" />
-    <Compile Include="RenderData\Texture.cs" />
+    <Compile Include="Render\Device.cs" />
+    <Compile Include="Render\Mesh.cs" />
+    <Compile Include="Render\Texture.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
