@@ -7,12 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using SoftRender.RenderData;
 
 namespace SoftRender
 {
-    public partial class Form1 : Form
+    public partial class SoftRender : Form
     {
-        public Form1()
+
+        //private Bitmap _texture;
+        //private Bitmap _frameBuffer;
+        //private Graphics _frameG;
+        //private float[,] _zBuffer;
+        //private Mesh _mesh;
+
+
+        public SoftRender()
         {
             InitializeComponent();
         }

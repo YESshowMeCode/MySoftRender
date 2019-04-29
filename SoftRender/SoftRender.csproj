@@ -50,13 +50,14 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Math\Color.cs" />
+    <Compile Include="RenderData\Color.cs" />
     <Compile Include="Math\MathUntil.cs" />
     <Compile Include="Math\Matrix.cs" />
     <Compile Include="Math\Vector.cs" />
     <Compile Include="Math\Vertex.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RenderData\Device.cs" />
     <Compile Include="RenderData\Mesh.cs" />
     <Compile Include="RenderData\Texture.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

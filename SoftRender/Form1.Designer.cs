@@ -1,6 +1,6 @@
 ﻿namespace SoftRender
 {
-    partial class Form1
+    partial class SoftRender
     {
         /// <summary>
         /// 必需的设计器变量。

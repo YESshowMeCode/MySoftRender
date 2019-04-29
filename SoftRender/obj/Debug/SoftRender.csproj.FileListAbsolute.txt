@@ -1,2 +1,8 @@
 D:\MyGithub\SoftRender\SoftRender\SoftRender\bin\Debug\SoftRender.exe.config
 D:\MyGithub\MySoftRender\MySoftRender\SoftRender\bin\Debug\SoftRender.exe.config
+D:\MyGithub\MySoftRender\MySoftRender\SoftRender\bin\Debug\SoftRender.exe
+D:\MyGithub\MySoftRender\MySoftRender\SoftRender\bin\Debug\SoftRender.pdb
+D:\MyGithub\MySoftRender\MySoftRender\SoftRender\obj\Debug\SoftRender.Properties.Resources.resources
+D:\MyGithub\MySoftRender\MySoftRender\SoftRender\obj\Debug\SoftRender.csproj.GenerateResource.Cache
+D:\MyGithub\MySoftRender\MySoftRender\SoftRender\obj\Debug\SoftRender.exe
+D:\MyGithub\MySoftRender\MySoftRender\SoftRender\obj\Debug\SoftRender.pdb

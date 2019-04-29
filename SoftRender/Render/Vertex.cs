@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SoftRender.RenderData;
 
-namespace SoftRender.Math
+namespace SoftRender.Render
 {
     class Vertex
     {
@@ -41,6 +40,8 @@ namespace SoftRender.Math
             this.u = vex.u;
             this.v = vex.v;
         }
+
+
 
     }
 }
