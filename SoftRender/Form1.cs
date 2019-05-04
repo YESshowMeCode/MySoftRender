@@ -7,24 +7,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing;
 using System.Drawing.Drawing2D;
+using SoftRender.Render;
 
 namespace SoftRender
 {
     public partial class SoftRender : Form
     {
 
-        //private Bitmap _texture;
-        //private Bitmap _frameBuffer;
-        //private Graphics _frameG;
-        //private float[,] _zBuffer;
-        //private Mesh _mesh;
+        private Device mDevice;
+        private Bitmap mBmp;
+        private Rectangle mRect;
+        private Graphics mGraphics;
+        private Scene mScene;
+        private PixelFormat mPixelFormat;
+        private BitmapData mData;
+
+        private Matrix4x4 mViewMat;
+        private Matrix4x4 mProjectionMat;
+        private Mesh mCube;
+        private bool mIsMouseLeftDown = false;
+        private Vector2 mMouseLeftPos = new Vector2();
 
 
         public SoftRender()
         {
             InitializeComponent();
         }
+
+        private void InitSettings()
+        {
+            SetStyle(ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.DoubleBuffer, true);
+            SetStyle(ControlStyles.ResizeRedraw, true);
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+        }
+
+
+
     }
 }

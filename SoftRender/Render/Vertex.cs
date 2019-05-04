@@ -13,7 +13,7 @@ namespace SoftRender.Render
         public float z;
 
 
-        public Vector point;
+        public Vector4 point;
 
         public float u, v;
 
@@ -22,7 +22,7 @@ namespace SoftRender.Render
         public float onePerZ;
 
 
-        public Vertex(Vector point,  float u, float v, Color col)
+        public Vertex(Vector4 point,  float u, float v, Color col)
         {
             this.point = point;
             this.point.w = 1;

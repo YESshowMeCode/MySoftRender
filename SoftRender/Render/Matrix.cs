@@ -95,6 +95,38 @@ namespace SoftRender.Render
             return matrix;
         }
 
+        public Vector4 LeftApply(Vector4 vec)
+        {
+            Vector4 res = new Vector4();
+            res.x = vec.x * _m[0, 0] + vec.y * _m[1, 0] + vec.z * _m[2, 0] + vec.w * _m[3, 0];
+            res.y = vec.x * _m[0, 1] + vec.y * _m[1, 1] + vec.z * _m[2, 1] + vec.w * _m[3, 1];
+            res.z = vec.x * _m[0, 2] + vec.y * _m[1, 2] + vec.z * _m[2, 2] + vec.w * _m[3, 2];
+            res.w = vec.x * _m[0, 3] + vec.y * _m[1, 3] + vec.z * _m[2, 3] + vec.w * _m[3, 3];
+            return res;
+        }
+
+        public static Matrix RotateX(float rotateX)
+        {
+            Matrix matrix = new Matrix();
+            rotateX = rotateX * (float)Math.PI / 180;
+            matrix[1, 1] = (float)Math.Cos(rotateX);
+            matrix[1, 2] = (float)Math.Sin(rotateX);
+            matrix[2, 1] = (float)Math.Sin(rotateX);
+            matrix[2, 2] = (float)Math.Cos(rotateX);
+            return matrix;
+        }
+
+        public static Matrix RotateY(float rotateY)
+        {
+            Matrix matrix = new Matrix();
+            rotateY = rotateY * (float)Math.PI / 180;
+            matrix[0, 0] = (float)Math.Cos(rotateY);
+            matrix[0, 2] = (float)Math.Sin(rotateY);
+            matrix[2, 0] = (float)Math.Sin(rotateY);
+            matrix[2, 2] = (float)Math.Cos(rotateY);
+            return matrix;
+        }
+
         public void SetZero()
         {
             for (int i = 0; i < 4; ++i)

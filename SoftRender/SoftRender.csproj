@@ -51,10 +51,18 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Render\Camera.cs" />
+    <Compile Include="Render\Clip.cs" />
     <Compile Include="Render\Color.cs" />
+    <Compile Include="Render\Face.cs" />
+    <Compile Include="Render\Light.cs" />
+    <Compile Include="Render\Material.cs" />
     <Compile Include="Render\MathUntil.cs" />
     <Compile Include="Render\Matrix.cs" />
-    <Compile Include="Render\Vector.cs" />
+    <Compile Include="Render\RenderTexture.cs" />
+    <Compile Include="Render\ScanLine.cs" />
+    <Compile Include="Render\Scene.cs" />
+    <Compile Include="Render\Vector2.cs" />
+    <Compile Include="Render\Vector4.cs" />
     <Compile Include="Render\Vertex.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

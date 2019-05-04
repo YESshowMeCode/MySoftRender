@@ -9,6 +9,9 @@ namespace SoftRender.Render
     class MathUntil
     {
 
+
+
+
         public static Matrix GetTranslate(float x, float y, float z)
         {
             return new Matrix(1, 0, 0, 0,
