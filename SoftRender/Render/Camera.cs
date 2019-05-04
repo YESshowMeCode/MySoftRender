@@ -49,9 +49,9 @@ namespace SoftRender.Render
             }
         }
 
-        public Matrix GetLookAt()
+        public Matrix4x4 GetLookAt()
         {
-            Matrix view = new Matrix();
+            Matrix4x4 view = new Matrix4x4();
 
             Vector4 xAxis, yAxis, zAxis;
 
@@ -86,9 +86,9 @@ namespace SoftRender.Render
         }
 
 
-        public Matrix GetProject(float fov,float aspect,float zn,float zf)
+        public Matrix4x4 GetProject(float fov,float aspect,float zn,float zf)
         {
-            Matrix project = new Matrix();
+            Matrix4x4 project = new Matrix4x4();
 
             project.SetZero();
             project[0, 0] = 1 / ((float)Math.Tan(fov * 0.5f) * aspect);
@@ -102,7 +102,7 @@ namespace SoftRender.Render
 
         public void Rotate(Vector4 position ,float x,float y)
         {
-            m_Position = (Matrix.RotateX(x) * Matrix.RotateY(y)).LeftApply(position);
+            m_Position = (Matrix4x4.RotateX(x) * Matrix4x4.RotateY(y)).LeftApply(position);
         }
 
         public void MoveForward(float distance)
@@ -127,12 +127,12 @@ namespace SoftRender.Render
 
         public void MoveTheta(float r)
         {
-            m_Position = m_Position * Matrix.RotateX(r);
+            m_Position = m_Position * Matrix4x4.RotateX(r);
         }
 
         public void MovePhi(float r)
         {
-            m_Position = m_Position * Matrix.RotateY(r);
+            m_Position = m_Position * Matrix4x4.RotateY(r);
         }
 
     }

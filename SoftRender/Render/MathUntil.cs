@@ -12,25 +12,25 @@ namespace SoftRender.Render
 
 
 
-        public static Matrix GetTranslate(float x, float y, float z)
+        public static Matrix4x4 GetTranslate(float x, float y, float z)
         {
-            return new Matrix(1, 0, 0, 0,
+            return new Matrix4x4(1, 0, 0, 0,
                               0, 1, 0, 0,
                               0, 0, 1, 0,
                               x, y, z, 1);
         }
 
-        public static Matrix GetScale(float x, float y, float z)
+        public static Matrix4x4 GetScale(float x, float y, float z)
         {
-            return new Matrix(x, 0, 0, 0,
+            return new Matrix4x4(x, 0, 0, 0,
                               0, y, 0, 0,
                               0, 0, z, 0,
                               0, 0, 0, 1);
         }
 
-        public static Matrix GetRotateX(float f)
+        public static Matrix4x4 GetRotateX(float f)
         {
-            Matrix matrix = new Matrix();
+            Matrix4x4 matrix = new Matrix4x4();
             matrix.Identity();
             matrix[1, 1] = (float)(System.Math.Cos(f));
             matrix[1, 2] = (float)(System.Math.Sin(f));
@@ -39,9 +39,9 @@ namespace SoftRender.Render
             return matrix;
         }
 
-        public static Matrix GetRotateY(float f)
+        public static Matrix4x4 GetRotateY(float f)
         {
-            Matrix matrix = new Matrix();
+            Matrix4x4 matrix = new Matrix4x4();
             matrix.Identity();
             matrix[0, 0] = (float)(System.Math.Cos(f));
             matrix[0, 2] = (float)(System.Math.Sin(f));
@@ -50,9 +50,9 @@ namespace SoftRender.Render
             return matrix;
         }
 
-        public static Matrix GetRotateZ(float f)
+        public static Matrix4x4 GetRotateZ(float f)
         {
-            Matrix matrix = new Matrix();
+            Matrix4x4 matrix = new Matrix4x4();
             matrix.Identity();
             matrix[0, 0] = (float)(System.Math.Cos(f));
             matrix[1, 0] = (float)(System.Math.Sin(f));
@@ -64,6 +64,30 @@ namespace SoftRender.Render
         public static float Lerp(float right, float left, float f)
         {
             return right * f + left * (1 - f);
+        }
+
+        public static Color Lerp(Color c1, Color c2, float k)
+        {
+            byte r = (byte)(c1.r + (c2.r - c1.r) * k);
+            byte g = (byte)(c1.g + (c2.g - c1.g) * k);
+            byte b = (byte)(c1.b + (c2.b - c1.b) * k);
+            return new Color(r, g, b);
+        }
+
+        public static Vector2 Lerp(Vector2 v1, Vector2 v2, float k)
+        {
+            return new Vector2(
+                v1.x + (v2.x - v1.x) * k,
+                v1.y + (v2.y - v1.y) * k);
+        }
+
+        public static Vector4 Lerp(Vector4 v1, Vector4 v2, float k)
+        {
+            return new Vector4(
+                v1.x + (v2.x - v1.x) * k,
+                v1.y + (v2.y - v1.y) * k,
+                v1.z + (v2.z - v1.z) * k,
+                v1.w + (v2.w - v1.w) * k);
         }
 
         public static float Range(float f, float min, float max)

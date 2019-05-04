@@ -80,7 +80,7 @@ namespace SoftRender.Render
         }
 
 
-        public static Vector4 operator *(Vector4 right,Matrix left)
+        public static Vector4 operator *(Vector4 right,Matrix4x4 left)
         {
             Vector4 res = new Vector4();
             res.x = right.x * left[0, 0] + right.y * left[1, 0] + right.z * left[2, 0] + right.w * left[3, 0];
@@ -90,7 +90,7 @@ namespace SoftRender.Render
             return res;
         }
 
-        public Vector4 MultiplyMatrix(Matrix matrix)
+        public Vector4 MultiplyMatrix(Matrix4x4 matrix)
         {
             Vector4 vec = new Vector4();
             vec.x = x * matrix[0, 0] + y * matrix[0, 1] + z * matrix[0, 2] + w * matrix[0, 3];

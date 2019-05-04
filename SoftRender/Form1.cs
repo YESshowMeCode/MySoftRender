@@ -23,8 +23,8 @@ namespace SoftRender
         private PixelFormat mPixelFormat;
         private BitmapData mData;
 
-        private Matrix4x4 mViewMat;
-        private Matrix4x4 mProjectionMat;
+        private Matrix mViewMat;
+        private Matrix mProjectionMat;
         private Mesh mCube;
         private bool mIsMouseLeftDown = false;
         private Vector2 mMouseLeftPos = new Vector2();

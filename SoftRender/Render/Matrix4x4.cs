@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace SoftRender.Render
 {
-    class Matrix
+    class Matrix4x4
     {
         private float[,] _m = new float[4, 4];
-        public Matrix()
+        public Matrix4x4()
         {
 
         }
 
-        public Matrix(float a1, float a2, float a3, float a4,
+        public Matrix4x4(float a1, float a2, float a3, float a4,
             float b1, float b2, float b3, float b4,
             float c1, float c2, float c3, float c4,
             float d1, float d2, float d3, float d4)
@@ -40,9 +40,9 @@ namespace SoftRender.Render
             }
         }
 
-        public static Matrix operator +(Matrix right, Matrix left)
+        public static Matrix4x4 operator +(Matrix4x4 right, Matrix4x4 left)
         {
-            Matrix res = new Matrix();
+            Matrix4x4 res = new Matrix4x4();
             for (int i = 0; i < 4; ++i)
             {
                 for (int j = 0; j < 4; ++j)
@@ -53,9 +53,9 @@ namespace SoftRender.Render
                 return res;
         }
 
-        public static Matrix operator -(Matrix right, Matrix left)
+        public static Matrix4x4 operator -(Matrix4x4 right, Matrix4x4 left)
         {
-            Matrix res = new Matrix();
+            Matrix4x4 res = new Matrix4x4();
             for (int i = 0; i < 4; ++i)
             {
                 for (int j = 0; j < 4; ++j)
@@ -67,9 +67,9 @@ namespace SoftRender.Render
         }
          
 
-        public static Matrix operator *(Matrix right, Matrix left)
+        public static Matrix4x4 operator *(Matrix4x4 right, Matrix4x4 left)
         {
-            Matrix res = new Matrix();
+            Matrix4x4 res = new Matrix4x4();
             for (int i = 0; i < 4; ++i)
             {
                 for (int j = 0; i < 4; ++j)
@@ -83,7 +83,7 @@ namespace SoftRender.Render
             return res;
         }
 
-        public static Matrix operator *(Matrix matrix, float k)
+        public static Matrix4x4 operator *(Matrix4x4 matrix, float k)
         {
             for (int i = 0; i < 4; ++i)
             {
@@ -105,9 +105,9 @@ namespace SoftRender.Render
             return res;
         }
 
-        public static Matrix RotateX(float rotateX)
+        public static Matrix4x4 RotateX(float rotateX)
         {
-            Matrix matrix = new Matrix();
+            Matrix4x4 matrix = new Matrix4x4();
             rotateX = rotateX * (float)Math.PI / 180;
             matrix[1, 1] = (float)Math.Cos(rotateX);
             matrix[1, 2] = (float)Math.Sin(rotateX);
@@ -116,9 +116,9 @@ namespace SoftRender.Render
             return matrix;
         }
 
-        public static Matrix RotateY(float rotateY)
+        public static Matrix4x4 RotateY(float rotateY)
         {
-            Matrix matrix = new Matrix();
+            Matrix4x4 matrix = new Matrix4x4();
             rotateY = rotateY * (float)Math.PI / 180;
             matrix[0, 0] = (float)Math.Cos(rotateY);
             matrix[0, 2] = (float)Math.Sin(rotateY);

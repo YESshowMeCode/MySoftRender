@@ -8,38 +8,80 @@ namespace SoftRender.Render
 {
     class Vertex
     {
-        public float x;
-        public float y;
-        public float z;
+
+        private Vector4 m_Position;
+        private Vector4 m_Normal;
+        private Vector2 m_UV;
+        private Color m_Color;
+        private Color m_LightColor;
+
+        private Vector4 m_ScreenPosition;
+        private Vector4 m_ClipPosition;
 
 
-        public Vector4 point;
-
-        public float u, v;
-
-        public Color vexColor;
-
-        public float onePerZ;
-
-
-        public Vertex(Vector4 point,  float u, float v, Color col)
+        public Vector4 Position
         {
-            this.point = point;
-            this.point.w = 1;
-            vexColor = col;
-            onePerZ = 1;
-            this.u = u;
-            this.v = v;
+            get { return m_Position; }
+            set { m_Position = value; }
         }
 
-        public Vertex(Vertex vex)
+        public Vector4 Normal
         {
-            point = vex.point;
-            this.vexColor = vex.vexColor;
-            onePerZ = 1;
-            this.u = vex.u;
-            this.v = vex.v;
+            get { return m_Normal; }
+            set { m_Normal = value; }
         }
+
+        public Vector2 UV
+        {
+            get { return m_UV; }
+            set { m_UV = value; }
+        }
+
+        public Color Color
+        {
+            get { return m_Color; }
+            set { m_Color = value; }
+        }
+
+        public Color LightColor
+        {
+            get { return m_LightColor; }
+            set { m_LightColor = value; }
+        }
+
+        public Vector4 ScreenPosition
+        {
+            get { return m_ScreenPosition; }
+            set { m_ScreenPosition = value; }
+        }
+
+        public Vector4 ClipPosition
+        {
+            get { return m_ClipPosition; }
+            set { m_ClipPosition = value; }
+        }
+
+        public Vertex()
+        {
+            m_LightColor = new Color(255, 255, 255);
+        }
+
+        public Vertex(Vector4 position, Vector4 normal,Vector2 uv,Color col)
+        {
+            m_Position = position;
+            m_Normal = normal;
+            m_UV = uv;
+            m_Color = col;
+            m_LightColor = new Color(255, 255, 255);
+        }
+
+        public static void SwapVertex(ref Vertex v1,ref Vertex v2)
+        {
+            Vertex tempv = v2;
+            v2 = v1;
+            v1 = tempv;
+        }
+
 
 
 

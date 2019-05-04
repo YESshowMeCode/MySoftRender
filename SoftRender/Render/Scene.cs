@@ -67,11 +67,11 @@ namespace SoftRender.Render
             m_Mesh.Add(mesh);
         }
 
-        public void Render(Device device ,Matrix viewMat,Matrix projMat)
+        public void Render(Device device ,Matrix4x4 viewMat,Matrix4x4 projMat)
         {
             foreach(Mesh mesh in m_Mesh)
             {
-                
+                mesh.Render(this, device, viewMat, projMat);
             }
         }
 
