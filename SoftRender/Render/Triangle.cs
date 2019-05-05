@@ -8,7 +8,7 @@ namespace SoftRender.Render
 {
     class Triangle
     {
-        private List<Vertex> m_Vertexs;
+        private Vertex[] m_Vertexs;
         private float Weight1;
         private float weight2;
         private int a, b, c, d, dn1, dn2;
@@ -21,18 +21,15 @@ namespace SoftRender.Render
         private float x3, y3, z3;
 
 
-        public List<Vertex> Vertexs
+        public Vertex[] Vertexs
         {
             get { return m_Vertexs; }
             set { m_Vertexs = value; }
         }
 
-        public Triangle(Vertex a,Vertex b,Vertex c)
+        public Triangle(Vertex a, Vertex b, Vertex c)
         {
-            m_Vertexs = new List<Vertex>();
-            m_Vertexs.Add(a);
-            m_Vertexs.Add(b);
-            m_Vertexs.Add(c);
+            m_Vertexs = new Vertex[] { a, b, c };
         }
 
 

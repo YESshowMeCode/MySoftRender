@@ -51,7 +51,7 @@ namespace SoftRender.Render
 
         public Matrix4x4 GetLookAt()
         {
-            Matrix4x4 view = new Matrix4x4();
+            Matrix4x4 view = new Matrix4x4(1);
 
             Vector4 xAxis, yAxis, zAxis;
 
@@ -88,7 +88,7 @@ namespace SoftRender.Render
 
         public Matrix4x4 GetProject(float fov,float aspect,float zn,float zf)
         {
-            Matrix4x4 project = new Matrix4x4();
+            Matrix4x4 project = new Matrix4x4(1);
             project.SetZero();
             project[0, 0] = 1 / ((float)Math.Tan(fov * 0.5f) * aspect);
             project[1, 1] = 1 / ((float)Math.Tan(fov * 0.5f));

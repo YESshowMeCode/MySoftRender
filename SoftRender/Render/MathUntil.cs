@@ -11,23 +11,6 @@ namespace SoftRender.Render
 
 
 
-
-        public static Matrix4x4 GetTranslate(float x, float y, float z)
-        {
-            return new Matrix4x4(1, 0, 0, 0,
-                              0, 1, 0, 0,
-                              0, 0, 1, 0,
-                              x, y, z, 1);
-        }
-
-        public static Matrix4x4 GetScale(float x, float y, float z)
-        {
-            return new Matrix4x4(x, 0, 0, 0,
-                              0, y, 0, 0,
-                              0, 0, z, 0,
-                              0, 0, 0, 1);
-        }
-
         public static Matrix4x4 GetRotateX(float f)
         {
             Matrix4x4 matrix = new Matrix4x4();

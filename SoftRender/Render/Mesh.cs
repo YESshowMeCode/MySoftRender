@@ -57,8 +57,7 @@ namespace SoftRender.Render
         {
             m_Name = name;
             m_Material = new Material(0.9f, new Color3(200, 200, 200));
-            m_Transform = new Matrix4x4();
-            m_Transform.Identity();
+            m_Transform = new Matrix4x4(1);
         }
 
         public List<Triangle> GetDrawTriangleList(List<Vertex> vertexs)
