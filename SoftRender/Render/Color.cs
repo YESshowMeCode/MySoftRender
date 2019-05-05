@@ -59,14 +59,8 @@ namespace SoftRender.Render
 
         public float b
         {
-            get
-            {
-                return MathUntil.Range(_b, 0, 1);
-            }
-            set
-            {
-                _b = MathUntil.Range(value, 0, 1);
-            }
+            get {   return MathUntil.Range(_b, 0, 1); }
+            set {   _b = MathUntil.Range(value, 0, 1); }
         }
 
 
@@ -89,6 +83,16 @@ namespace SoftRender.Render
         public static Color operator *(Color right, float f)
         {
             return new Color(right.r * f, right.g * f, right.b * f);
+        }
+
+        public static Color operator *(Color right,Color left)
+        {
+            Color col = new Color();
+            col.r = (right.r / 255) * (left.r / 255);
+            col.g = (right.g / 255) * (left.g / 255);
+            col.b = (right.b / 255) * (left.b / 255);
+            return col;
+
         }
     }
 }

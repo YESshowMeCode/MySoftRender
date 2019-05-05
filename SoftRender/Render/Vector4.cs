@@ -114,5 +114,13 @@ namespace SoftRender.Render
             vec.z = right.x * left.y - right.y * left.x;
             return vec;
         }
+
+        public static void SwapVector4(ref Vector4 right,ref Vector4 left)
+        {
+            var tmp = right;
+            right = left;
+            left = tmp;
+        } 
+
     }
 }

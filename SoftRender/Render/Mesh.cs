@@ -121,6 +121,80 @@ namespace SoftRender.Render
 
                 if (scene.UseLight && scene.Light != null)
                 {
+                    verA2.LightColor = GetLightColor(verA.Position, verA.Normal, scene.Light);
+                    verB2.LightColor= GetLightColor(verA.Position, verA.Normal, scene.Light);
+                    verC2.LightColor= GetLightColor(verA.Position, verA.Normal, scene.Light);
+                }
+
+                verA.ClipPosition = device.ToHomogeneous(verA.Position, viewMatrix);
+                verB.ClipPosition = device.ToHomogeneous(verB.Position, viewMatrix);
+                verC.ClipPosition = device.ToHomogeneous(verC.Position, viewMatrix);
+
+                verA2.Color = verA.Color;
+                verB2.Color = verB.Color;
+                verC2.Color = verC.Color;
+
+
+                verA.ScreenPosition = device.ViewPort(verA.ClipPosition);
+                verB.ScreenPosition = device.ViewPort(verB.ClipPosition);
+                verC.ScreenPosition = device.ViewPort(verC.ClipPosition);
+
+                verA2.ClipPosition = verA.ClipPosition;
+                verA2.ScreenPosition = verA.ScreenPosition;
+                verA2.Position = m_Transform.LeftApply(verA.Position);
+                verA2.UV = verA.UV;
+
+                verB2.ClipPosition = verB.ClipPosition;
+                verB2.ScreenPosition = verB.ScreenPosition;
+                verB2.Position = m_Transform.LeftApply(verB.Position);
+                verB2.UV = verB.UV;
+
+                verC2.ClipPosition = verC.ClipPosition;
+                verC2.ScreenPosition = verC.ScreenPosition;
+                verC2.Position = m_Transform.LeftApply(verC.Position);
+                verC2.UV = verC.UV;
+
+                verA2.Normal = verA.Normal;
+                verB2.Normal = verB.Normal;
+                verC2.Normal = verC.Normal;
+
+                List<Vertex> list = new List<Vertex>();
+                list.Add(verA2);
+                list.Add(verB2);
+                list.Add(verC2);
+                Triangle triang1 = new Triangle(verA2, verB2, verC2);
+                List<Vertex> triangleVertex = new List<Vertex>();
+
+                for (FaceType face = FaceType.LEFT; face <= FaceType.FAR; face++)
+                {
+                    if (list.Count == 0) break;
+                    m_HodgmanClip = new Clip(device);
+                    m_HodgmanClip.HodgmanPolygonClip(face, Device.sClipMin, Device.sClipMax, list.ToArray());
+                    list = m_HodgmanClip.OutputList;
+                }
+
+                List<Triangle> tringleList = GetDrawTriangleList(list);
+                if (device.RenderMode == RenderMode.WIREFRAME)
+                {
+                    for (int i = 0; i < tringleList.Count; i++)
+                    {
+                        if (!device.IsInBack(tringleList[i]))
+                        {
+                            device.DrawLine(device.ViewPort(tringleList[i].Vertexs[0].ClipPosition), device.ViewPort(tringleList[i].Vertexs[1].ClipPosition), scene, tringleList[i].Vertexs[0], tringleList[i].Vertexs[1]);
+                            device.DrawLine(device.ViewPort(tringleList[i].Vertexs[1].ClipPosition), device.ViewPort(tringleList[i].Vertexs[2].ClipPosition), scene, tringleList[i].Vertexs[1], tringleList[i].Vertexs[2]);
+                            device.DrawLine(device.ViewPort(tringleList[i].Vertexs[2].ClipPosition), device.ViewPort(tringleList[i].Vertexs[0].ClipPosition), scene, tringleList[i].Vertexs[2], tringleList[i].Vertexs[0]);
+                        }
+                    }
+                }
+                else
+                {
+                    if (m_ScanLine == null)
+                        m_ScanLine = new ScanLine(device);
+                    for (int i = 0; i < tringleList.Count; i++)
+                    {
+                        if (!device.IsInBack(tringleList[i]))
+                            m_ScanLine.ProcessScanLine(tringleList[i], scene, triang1, faces.FaceType, this);
+                    }
                 }
             }
 

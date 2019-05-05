@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using SoftRender.Render;
+using System.Drawing.Imaging;
 
 namespace SoftRender
 {
@@ -33,6 +34,8 @@ namespace SoftRender
         public SoftRender()
         {
             InitializeComponent();
+            InitSettings();
+
         }
 
         private void InitSettings()

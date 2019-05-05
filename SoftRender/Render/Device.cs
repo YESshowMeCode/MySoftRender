@@ -104,7 +104,7 @@ namespace SoftRender.Render
             return vec;
         }
 
-        private Vector4 ToHomogeneous(Vector4 x,Matrix4x4 mat)
+        public Vector4 ToHomogeneous(Vector4 x,Matrix4x4 mat)
         {
             Vector4 val = mat.LeftApply(x);
             float rh = 1.0f / val.w;

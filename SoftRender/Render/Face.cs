@@ -11,6 +11,7 @@ namespace SoftRender.Render
         LEFT = 1,
         RIGHT,
         BUTTOM,
+        TOP,
         NEAR,
         FAR,
         NONE,

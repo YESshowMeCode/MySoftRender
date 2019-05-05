@@ -6,3 +6,12 @@ D:\MyGithub\MySoftRender\MySoftRender\SoftRender\obj\Debug\SoftRender.Properties
 D:\MyGithub\MySoftRender\MySoftRender\SoftRender\obj\Debug\SoftRender.csproj.GenerateResource.Cache
 D:\MyGithub\MySoftRender\MySoftRender\SoftRender\obj\Debug\SoftRender.exe
 D:\MyGithub\MySoftRender\MySoftRender\SoftRender\obj\Debug\SoftRender.pdb
+D:\MyGithub\SoftRender\MySoftRender\SoftRender\bin\Debug\SoftRender.exe.config
+D:\MyGithub\SoftRender\MySoftRender\SoftRender\bin\Debug\SoftRender.exe
+D:\MyGithub\SoftRender\MySoftRender\SoftRender\bin\Debug\SoftRender.pdb
+D:\MyGithub\SoftRender\MySoftRender\SoftRender\obj\Debug\SoftRender.csprojAssemblyReference.cache
+D:\MyGithub\SoftRender\MySoftRender\SoftRender\obj\Debug\SoftRender.Properties.Resources.resources
+D:\MyGithub\SoftRender\MySoftRender\SoftRender\obj\Debug\SoftRender.csproj.GenerateResource.cache
+D:\MyGithub\SoftRender\MySoftRender\SoftRender\obj\Debug\SoftRender.csproj.CoreCompileInputs.cache
+D:\MyGithub\SoftRender\MySoftRender\SoftRender\obj\Debug\SoftRender.exe
+D:\MyGithub\SoftRender\MySoftRender\SoftRender\obj\Debug\SoftRender.pdb
