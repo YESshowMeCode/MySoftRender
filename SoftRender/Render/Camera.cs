@@ -57,10 +57,10 @@ namespace SoftRender.Render
 
             zAxis = m_target - m_Position;
             zAxis.Normalize();
-            yAxis = Vector4.Cross(m_Up, m_Position);
-            yAxis.Normalize();
-            xAxis = Vector4.Cross(zAxis, yAxis);
+            xAxis = Vector4.Cross(m_Up, m_Position);
             xAxis.Normalize();
+            yAxis = Vector4.Cross(zAxis, xAxis);
+            yAxis.Normalize();
 
             view[0, 0] = xAxis.x;
             view[1, 0] = xAxis.y;
@@ -89,7 +89,6 @@ namespace SoftRender.Render
         public Matrix4x4 GetProject(float fov,float aspect,float zn,float zf)
         {
             Matrix4x4 project = new Matrix4x4();
-
             project.SetZero();
             project[0, 0] = 1 / ((float)Math.Tan(fov * 0.5f) * aspect);
             project[1, 1] = 1 / ((float)Math.Tan(fov * 0.5f));
@@ -107,7 +106,7 @@ namespace SoftRender.Render
 
         public void MoveForward(float distance)
         {
-            Vector4 dir = (Target - Position);
+            Vector4 dir = (m_target - m_Position);
             float w = m_Position.w;
             if (distance > 0 && dir.length < 1.5f)
             {

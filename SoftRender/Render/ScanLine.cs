@@ -9,13 +9,13 @@ namespace SoftRender.Render
     class ScanLine
     {
 
-        private Color m_UserColor;
+        private Color3 m_UserColor;
         private Device m_Device;
 
         public ScanLine(Device device)
         {
             m_Device = device;
-            m_UserColor = new Color(255, 255, 255);
+            m_UserColor = new Color3(255, 255, 255);
         }
 
         public void ProcessScanLine(Triangle triangle, Scene scene, Triangle ort, FaceType types, Mesh msh)
@@ -110,12 +110,12 @@ namespace SoftRender.Render
             float z1 = MathUntil.Lerp(screen11.z, screen12.z, r1);
             float z2 = MathUntil.Lerp(screen21.z, screen22.z, r2);
 
-            Color c1 = MathUntil.Lerp(v1.Color, v2.Color, r1);
-            Color c2 = MathUntil.Lerp(v3.Color, v4.Color, r2);
-            Color c3 = new Color();
+            Color3 c1 = MathUntil.Lerp(v1.Color, v2.Color, r1);
+            Color3 c2 = MathUntil.Lerp(v3.Color, v4.Color, r2);
+            Color3 c3 = new Color3();
 
-            Color lc1 = MathUntil.Lerp(v1.LightColor, v2.LightColor, r1);
-            Color lc2 = MathUntil.Lerp(v3.LightColor, v4.LightColor, r2);
+            Color3 lc1 = MathUntil.Lerp(v1.LightColor, v2.LightColor, r1);
+            Color3 lc2 = MathUntil.Lerp(v3.LightColor, v4.LightColor, r2);
 
             Vector4 pos1 = MathUntil.Lerp(v1.Position, v2.Position, r1);
             Vector4 pos2 = MathUntil.Lerp(v3.Position, v4.Position, r2);

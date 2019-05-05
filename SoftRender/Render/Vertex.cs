@@ -12,8 +12,8 @@ namespace SoftRender.Render
         private Vector4 m_Position;
         private Vector4 m_Normal;
         private Vector2 m_UV;
-        private Color m_Color;
-        private Color m_LightColor;
+        private Color3 m_Color;
+        private Color3 m_LightColor;
 
         private Vector4 m_ScreenPosition;
         private Vector4 m_ClipPosition;
@@ -37,13 +37,13 @@ namespace SoftRender.Render
             set { m_UV = value; }
         }
 
-        public Color Color
+        public Color3 Color
         {
             get { return m_Color; }
             set { m_Color = value; }
         }
 
-        public Color LightColor
+        public Color3 LightColor
         {
             get { return m_LightColor; }
             set { m_LightColor = value; }
@@ -63,16 +63,16 @@ namespace SoftRender.Render
 
         public Vertex()
         {
-            m_LightColor = new Color(255, 255, 255);
+            m_LightColor = new Color3(255, 255, 255);
         }
 
-        public Vertex(Vector4 position, Vector4 normal,Vector2 uv,Color col)
+        public Vertex(Vector4 position, Vector4 normal,Vector2 uv,Color3 col)
         {
             m_Position = position;
             m_Normal = normal;
             m_UV = uv;
             m_Color = col;
-            m_LightColor = new Color(255, 255, 255);
+            m_LightColor = new Color3(255, 255, 255);
         }
 
         public static void SwapVertex(ref Vertex v1,ref Vertex v2)

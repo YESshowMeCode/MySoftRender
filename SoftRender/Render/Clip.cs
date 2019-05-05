@@ -67,7 +67,7 @@ namespace SoftRender.Render
 
             Vector4 clipPos = new Vector4();
             Vector4 pos = new Vector4();
-            Color col = new Color(0, 0, 0);
+            Color3 col = new Color3(0, 0, 0);
             Vector4 normal = new Vector4();
             Vector2 uv = new Vector2();
 

@@ -10,7 +10,7 @@ namespace SoftRender.Render
     {
 
         private float m_AmbientStrength;
-        private Color m_Diffuse;
+        private Color3 m_Diffuse;
 
         public float AmbientStrength
         {
@@ -18,13 +18,13 @@ namespace SoftRender.Render
             set { m_AmbientStrength = value; }
         }
 
-        public Color Diffuse
+        public Color3 Diffuse
         {
             get { return m_Diffuse; }
             set { m_Diffuse = value; }
         }   
 
-        public Material(float ambient,Color color)
+        public Material(float ambient,Color3 color)
         {
             m_AmbientStrength = ambient;
             m_Diffuse = color;

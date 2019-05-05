@@ -78,7 +78,7 @@ namespace SoftRender.Render
         }
 
 
-        public void PutPixel(int x,int y,float z,Color col)
+        public void PutPixel(int x,int y,float z,Color3 col)
         {
             int index = (x + y * Width);
             if (m_DepthBuffer[index] < z)
@@ -115,7 +115,7 @@ namespace SoftRender.Render
         }
 
 
-        public void DrawPoint(Vector4 point,Color col)
+        public void DrawPoint(Vector4 point,Color3 col)
         {
             if (point.x >= 0 && point.y >= 0 && point.x <= Width && point.y <= Height)
             {
@@ -147,7 +147,7 @@ namespace SoftRender.Render
             float x = x0;
             float y = y0;
 
-            Color vColor = new Color(128, 128, 128);
+            Color3 vColor = new Color3(128, 128, 128);
             for (int i = 1; i <= steps; i++)
             {
                 float dt = (float)(i) / (float)steps;
@@ -200,7 +200,7 @@ namespace SoftRender.Render
             return Vector4.Cross(v1v2, v1v3).z > 0;
         }
 
-        public Color GetPixelColor(float u, float v, TextureMap texture)
+        public Color3 GetPixelColor(float u, float v, TextureMap texture)
         {
             int x = Math.Abs((int)((1f - u) * texture.GetWidth()) % texture.GetWidth());
             int y = Math.Abs((int)((1f - v) * texture.GetHeight()) % texture.GetHeight());
@@ -208,7 +208,7 @@ namespace SoftRender.Render
             byte red = 0;
             byte green = 0;
             byte blue = 0;
-            return new Color(red, green, blue);
+            return new Color3(red, green, blue);
         }
     }
 }

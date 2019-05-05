@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SoftRender.Render
 {
-    class Color
+    class Color3
     {
 
         public float _r;
@@ -14,19 +14,19 @@ namespace SoftRender.Render
         public float _b;
 
 
-        public Color()
+        public Color3()
         {
 
         }
 
-        public Color(float r, float g, float b)
+        public Color3(float r, float g, float b)
         {
             this._r = MathUntil.Range(r, 0, 1);
             this._g = MathUntil.Range(g, 0, 1);
             this._b = MathUntil.Range(b, 0, 1);
         }
 
-        public Color(System.Drawing.Color c)
+        public Color3(System.Drawing.Color c)
         {
             this._r = MathUntil.Range((float)c.R / 255, 0, 1);
             this._g = MathUntil.Range((float)c.G / 255, 0, 1);
@@ -59,35 +59,35 @@ namespace SoftRender.Render
 
         public float b
         {
-            get {   return MathUntil.Range(_b, 0, 1); }
-            set {   _b = MathUntil.Range(value, 0, 1); }
+            get { return MathUntil.Range(_b, 0, 1); }
+            set { _b = MathUntil.Range(value, 0, 1); }
         }
 
 
-        public static Color Lerp(Color right, Color left, float f)
+        public static Color3 Lerp(Color3 right, Color3 left, float f)
         {
-            return new Color(right.r * f + left.r * (1 - f), right.g * f + left.g * (1 - f), right.b * f + left.b * (1 - f));
+            return new Color3(right.r * f + left.r * (1 - f), right.g * f + left.g * (1 - f), right.b * f + left.b * (1 - f));
         }
 
 
-        public static Color operator +(Color right, Color left)
+        public static Color3 operator +(Color3 right, Color3 left)
         {
-            return new Color(right.r + left.r, right.g + left.g, right.b + left.b);
+            return new Color3(right.r + left.r, right.g + left.g, right.b + left.b);
         }
 
-        public static Color operator -(Color right, Color left)
+        public static Color3 operator -(Color3 right, Color3 left)
         {
-            return new Color(right.r - left.r, right.g - left.g, right.b - left.b);
+            return new Color3(right.r - left.r, right.g - left.g, right.b - left.b);
         }
 
-        public static Color operator *(Color right, float f)
+        public static Color3 operator *(Color3 right, float f)
         {
-            return new Color(right.r * f, right.g * f, right.b * f);
+            return new Color3(right.r * f, right.g * f, right.b * f);
         }
 
-        public static Color operator *(Color right,Color left)
+        public static Color3 operator *(Color3 right, Color3 left)
         {
-            Color col = new Color();
+            Color3 col = new Color3();
             col.r = (right.r / 255) * (left.r / 255);
             col.g = (right.g / 255) * (left.g / 255);
             col.b = (right.b / 255) * (left.b / 255);

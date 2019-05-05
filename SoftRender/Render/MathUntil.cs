@@ -66,12 +66,12 @@ namespace SoftRender.Render
             return right * f + left * (1 - f);
         }
 
-        public static Color Lerp(Color c1, Color c2, float k)
+        public static Color3 Lerp(Color3 c1, Color3 c2, float k)
         {
             byte r = (byte)(c1.r + (c2.r - c1.r) * k);
             byte g = (byte)(c1.g + (c2.g - c1.g) * k);
             byte b = (byte)(c1.b + (c2.b - c1.b) * k);
-            return new Color(r, g, b);
+            return new Color3(r, g, b);
         }
 
         public static Vector2 Lerp(Vector2 v1, Vector2 v2, float k)

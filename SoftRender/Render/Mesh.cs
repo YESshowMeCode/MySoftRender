@@ -25,6 +25,7 @@ namespace SoftRender.Render
         public List<Vertex> VertexBuffer
         {
             get { return m_VertexBuffer; }
+            set { m_VertexBuffer = value; }
         }
 
         public Face[] Face
@@ -55,15 +56,16 @@ namespace SoftRender.Render
         public Mesh(string name)
         {
             m_Name = name;
-            m_Material = new Material(0.9f, new Color(200, 200, 200));
+            m_Material = new Material(0.9f, new Color3(200, 200, 200));
             m_Transform = new Matrix4x4();
+            m_VertexBuffer = new List<Vertex>();
             m_Transform.Identity();
         }
 
         public List<Triangle> GetDrawTriangleList(List<Vertex> vertexs)
         {
             List<Triangle> list = new List<Triangle>();
-            for(int i = 0; i < m_VertexBuffer.Count - 2; i++)
+            for (int i = 0; i < vertexs.Count - 2; i++)
             {
                 list.Add(new Triangle(vertexs[0], vertexs[i + 1], vertexs[i + 2]));
             }
@@ -95,13 +97,13 @@ namespace SoftRender.Render
         }
 
 
-        public Color GetLightColor(Vector4 position ,Vector4 normal,Light light)
+        public Color3 GetLightColor(Vector4 position ,Vector4 normal,Light light)
         {
-            Color ambient = light.Color * m_Material.AmbientStrength;
+            Color3 ambient = light.Color * m_Material.AmbientStrength;
             Vector4 nor = normal * m_Transform;
             Vector4 lightDir = (light.Position - position).Normalize();
             float diff = Math.Max(Vector4.Dot(normal.Normalize(), lightDir), 0);
-            Color diffuse = m_Material.Diffuse * diff;
+            Color3 diffuse = m_Material.Diffuse * diff;
             return ambient + diffuse;
         }
 

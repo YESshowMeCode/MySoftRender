@@ -52,7 +52,7 @@
     </Compile>
     <Compile Include="Render\Camera.cs" />
     <Compile Include="Render\Clip.cs" />
-    <Compile Include="Render\Color.cs" />
+    <Compile Include="Render\Color3.cs" />
     <Compile Include="Render\Face.cs" />
     <Compile Include="Render\Light.cs" />
     <Compile Include="Render\Material.cs" />

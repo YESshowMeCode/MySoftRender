@@ -10,7 +10,7 @@ namespace SoftRender.Render
     {
 
         private Vector4 m_Position;
-        private Color m_Color;
+        private Color3 m_Color;
 
         public Vector4 Position
         {
@@ -18,13 +18,13 @@ namespace SoftRender.Render
             set { m_Position = value; }
         }
 
-        public Color Color
+        public Color3 Color
         {
             get { return m_Color; }
             set { m_Color = value; }
         }
 
-        public Light(Vector4 pos,Color col)
+        public Light(Vector4 pos,Color3 col)
         {
             m_Color = col;
             m_Position = pos;

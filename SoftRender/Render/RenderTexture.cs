@@ -41,14 +41,14 @@ namespace SoftRender.Render
         {
             for(int i = 0; i < m_Width; ++i)
             {
-                for(int j = 0; j < m_height; ++i)
+                for(int j = 0; j < m_height; ++j)
                 {
                     m_Texture.SetPixel(i, j, System.Drawing.Color.Red);
                 }
             }
         }
 
-        public Color GetPixelColor(int x,int y)
+        public Color3 GetPixelColor(int x,int y)
         {
             x = x > 0 ? x : 0;
             x = x > m_Width ? m_Width - 1 : x;
@@ -57,10 +57,10 @@ namespace SoftRender.Render
             y = y > m_height ? m_height - 1 : y;
 
             System.Drawing.Color col = m_Texture.GetPixel(x, y);
-            return new Color(col.R, col.G, col.B);
+            return new Color3(col.R, col.G, col.B);
         }
 
-        public Color GetPixelColor(float xRate,float yRate)
+        public Color3 GetPixelColor(float xRate,float yRate)
         {
             int x = (int)(xRate * (m_Width - 1));
             int y = (int)(yRate * (m_height - 1));
@@ -71,7 +71,7 @@ namespace SoftRender.Render
             y = y > m_height ? m_height - 1 : y;
 
             System.Drawing.Color col = m_Texture.GetPixel(x, y);
-            return new Color(col.R, col.G, col.B);
+            return new Color3(col.R, col.G, col.B);
         }
 
     }
