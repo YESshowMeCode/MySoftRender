@@ -65,37 +65,40 @@ namespace SoftRender
                 return;
 
             m_Cube = new Mesh("Cube");
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(-1, -1, -1, 1), new Vector4(-1, -1, -1, 1), new Vector2(0, 0), new Color3(0, 0, 0)));
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(-1, -1, -1, 1), new Vector4(-1, -1, -1, 1), new Vector2(1, 0), new Color3(0, 0, 0)));
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(-1, -1, -1, 1), new Vector4(-1, -1, -1, 1), new Vector2(0, 0), new Color3(0, 0, 0)));
+            m_Cube.VertexBuffer = new Vertex[24] {
+				new Vertex(new Vector4(-1, -1, -1, 1), new Vector4(-1, -1, -1, 1), new Vector2(0, 0), new Color3(0, 0, 0)),
+				new Vertex(new Vector4(-1, -1, -1, 1), new Vector4(-1, -1, -1, 1), new Vector2(1, 0), new Color3(0, 0, 0)),
+				new Vertex(new Vector4(-1, -1, -1, 1), new Vector4(-1, -1, -1, 1), new Vector2(0, 0), new Color3(0, 0, 0)),
 
-		    m_Cube.VertexBuffer.Add(new Vertex(new Vector4(1, -1, -1, 1), new Vector4(1, -1, -1, 1), new Vector2(1, 0), new Color3(1, 0, 0)));
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(1, -1, -1, 1), new Vector4(1, -1, -1, 1),  new Vector2(0, 0), new Color3(1, 0, 0)));
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(1, -1, -1, 1), new Vector4(1, -1, -1, 1), new Vector2(1, 0), new Color3(1, 0, 0)));
+				new Vertex(new Vector4(1, -1, -1, 1), new Vector4(1, -1, -1, 1), new Vector2(1, 0), new Color3(255, 0, 0)),
+				new Vertex(new Vector4(1, -1, -1, 1), new Vector4(1, -1, -1, 1),  new Vector2(0, 0), new Color3(255, 0, 0)),
+				new Vertex(new Vector4(1, -1, -1, 1), new Vector4(1, -1, -1, 1), new Vector2(1, 0), new Color3(255, 0, 0)),
 
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(1, 1, -1, 1), new Vector4(1, 1, -1, 1), new Vector2(1, 0), new Color3(1, 1, 0)));
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(1, 1, -1, 1), new Vector4(1, 1, -1, 1), new Vector2(1, 1), new Color3(1, 1, 0)));
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(1, 1, -1, 1), new Vector4(1, 1, -1, 1), new Vector2(1, 1), new Color3(1, 1, 0)));
+				new Vertex(new Vector4(1, 1, -1, 1), new Vector4(1, 1, -1, 1), new Vector2(1, 0), new Color3(255, 255, 0)),
+				new Vertex(new Vector4(1, 1, -1, 1), new Vector4(1, 1, -1, 1), new Vector2(0, 1), new Color3(255, 255, 0)),
+				new Vertex(new Vector4(1, 1, -1, 1), new Vector4(1, 1, -1, 1), new Vector2(1, 1), new Color3(255, 255, 0)),
 
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(-1, 1, -1, 1), new Vector4(-1, 1, -1, 1), new Vector2(0, 0), new Color3(0, 1, 0)));
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(-1, 1, -1, 1), new Vector4(-1, 1, -1, 1), new Vector2(1, 1), new Color3(0, 1, 0)));
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(-1, 1, -1, 1), new Vector4(-1, 1, -1, 1), new Vector2(0, 1), new Color3(0, 1, 0)));
+				new Vertex(new Vector4(-1, 1, -1, 1), new Vector4(-1, 1, -1, 1), new Vector2(0, 0), new Color3(0, 255, 0)),
+				new Vertex(new Vector4(-1, 1, -1, 1), new Vector4(-1, 1, -1, 1), new Vector2(1, 1), new Color3(0, 255, 0)),
+				new Vertex(new Vector4(-1, 1, -1, 1), new Vector4(-1, 1, -1, 1), new Vector2(0, 1), new Color3(0, 255, 0)),
 
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(-1, -1, 1, 1), new Vector4(-1, -1, 1, 1), new Vector2(0, 1), new Color3(0, 0, 1)));
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(-1, -1, 1, 1), new Vector4(-1, -1, 1, 1), new Vector2(0, 0), new Color3(0, 0, 1)));
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(-1, -1, 1, 1), new Vector4(-1, -1, 1, 1), new Vector2(0, 0), new Color3(0, 0, 1)));
+				new Vertex(new Vector4(-1, -1, 1, 1), new Vector4(-1, -1, 1, 1), new Vector2(0, 1), new Color3(0, 0, 255)),
+				new Vertex(new Vector4(-1, -1, 1, 1), new Vector4(-1, -1, 1, 1), new Vector2(0, 0), new Color3(0, 0, 255)),
+				new Vertex(new Vector4(-1, -1, 1, 1), new Vector4(-1, -1, 1, 1), new Vector2(0, 0), new Color3(0, 0, 255)),
 
-		    m_Cube.VertexBuffer.Add(new Vertex(new Vector4(1, -1, 1, 1), new Vector4(1, -1, 1, 1), new Vector2(1, 1), new Color3(1, 0, 1)));
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(1, -1, 1, 1), new Vector4(1, -1, 1, 1), new Vector2(1, 0), new Color3(1, 0, 1)));
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(1, -1, 1, 1), new Vector4(1, -1, 1, 1), new Vector2(1, 0), new Color3(1, 0, 1)));
+				new Vertex(new Vector4(1, -1, 1, 1), new Vector4(1, -1, 1, 1), new Vector2(1, 1), new Color3(255, 0, 255)),
+				new Vertex(new Vector4(1, -1, 1, 1), new Vector4(1, -1, 1, 1), new Vector2(1, 0), new Color3(255, 0, 255)),
+				new Vertex(new Vector4(1, -1, 1, 1), new Vector4(1, -1, 1, 1), new Vector2(1, 0), new Color3(255, 0, 255)),
 
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(1, 1, 1, 1), new Vector4(1, 1, 1, 1), new Vector2(1, 1), new Color3(1, 1, 1)));
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(1, 1, 1, 1), new Vector4(1, 1, 1, 1), new Vector2(1, 1), new Color3(1, 1, 1)));
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(1, 1, 1, 1), new Vector4(1, 1, 1, 1), new Vector2(1, 1), new Color3(1, 1, 1)));
+				new Vertex(new Vector4(1, 1, 1, 1), new Vector4(1, 1, 1, 1), new Vector2(1, 1), new Color3(255, 255, 255)),
+				new Vertex(new Vector4(1, 1, 1, 1), new Vector4(1, 1, 1, 1), new Vector2(1, 1), new Color3(255, 255, 255)),
+				new Vertex(new Vector4(1, 1, 1, 1), new Vector4(1, 1, 1, 1), new Vector2(1, 1), new Color3(255, 255, 255)),
 
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(-1, 1, 1, 1), new Vector4(-1, 1, 1, 1), new Vector2(0, 1), new Color3(0, 1, 1)));
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(-1, 1, 1, 1), new Vector4(-1, 1, 1, 1), new Vector2(0, 1), new Color3(0, 1, 1)));
-            m_Cube.VertexBuffer.Add(new Vertex(new Vector4(-1, 1, 1, 1), new Vector4(-1, 1, 1, 1), new Vector2(0, 1), new Color3(0, 1, 1)));
+				new Vertex(new Vector4(-1, 1, 1, 1), new Vector4(-1, 1, 1, 1), new Vector2(0, 1), new Color3(0, 255, 255)),
+				new Vertex(new Vector4(-1, 1, 1, 1), new Vector4(-1, 1, 1, 1), new Vector2(0, 1), new Color3(0, 255, 255)),
+				new Vertex(new Vector4(-1, 1, 1, 1), new Vector4(-1, 1, 1, 1), new Vector2(0, 1), new Color3(0, 255, 255)),
+
+			};
 
             m_Cube.Face = new Face[] {
 				// 正面
@@ -180,7 +183,7 @@ namespace SoftRender
                     m_Device.RenderMode = RenderMode.CUBETEXTURED;
                     break;
                 case Keys.F1:
-                    Light light = new Light(new Vector4(5, 5, -5, 1), new Color3(0.8f, 1.0f, 1.0f));
+                    Light light = new Light(new Vector4(5, 5, -5, 1), new Color3(200, 255, 255));
                     m_Scene.AddLight(light);
                     m_Scene.UseLight = true;
                     break;

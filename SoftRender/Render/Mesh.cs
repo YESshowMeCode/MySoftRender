@@ -9,7 +9,7 @@ namespace SoftRender.Render
     class Mesh
     {
         private string m_Name;
-        private List<Vertex> m_VertexBuffer;
+        private Vertex[] m_VertexBuffer;
         private Face[] m_Face;
         private Material m_Material;
         private RenderTexture[] m_RenderTexture;
@@ -22,7 +22,7 @@ namespace SoftRender.Render
             get { return m_Name; }
         }
 
-        public List<Vertex> VertexBuffer
+        public Vertex[] VertexBuffer
         {
             get { return m_VertexBuffer; }
             set { m_VertexBuffer = value; }
@@ -58,7 +58,6 @@ namespace SoftRender.Render
             m_Name = name;
             m_Material = new Material(0.9f, new Color3(200, 200, 200));
             m_Transform = new Matrix4x4();
-            m_VertexBuffer = new List<Vertex>();
             m_Transform.Identity();
         }
 
@@ -124,8 +123,8 @@ namespace SoftRender.Render
                 if (scene.UseLight && scene.Light != null)
                 {
                     verA2.LightColor = GetLightColor(verA.Position, verA.Normal, scene.Light);
-                    verB2.LightColor= GetLightColor(verA.Position, verA.Normal, scene.Light);
-                    verC2.LightColor= GetLightColor(verA.Position, verA.Normal, scene.Light);
+                    verB2.LightColor= GetLightColor(verA.Position, verB.Normal, scene.Light);
+                    verC2.LightColor= GetLightColor(verA.Position, verC.Normal, scene.Light);
                 }
 
                 verA.ClipPosition = device.ToHomogeneous(verA.Position, viewMatrix);

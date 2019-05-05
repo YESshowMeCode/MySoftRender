@@ -68,9 +68,9 @@ namespace SoftRender.Render
 
         public static Color3 Lerp(Color3 c1, Color3 c2, float k)
         {
-            byte r = (byte)(c1.r + (c2.r - c1.r) * k);
-            byte g = (byte)(c1.g + (c2.g - c1.g) * k);
-            byte b = (byte)(c1.b + (c2.b - c1.b) * k);
+            byte r = (byte)(c1.R + (c2.R - c1.R) * k);
+            byte g = (byte)(c1.G + (c2.G - c1.G) * k);
+            byte b = (byte)(c1.B + (c2.B - c1.B) * k);
             return new Color3(r, g, b);
         }
 

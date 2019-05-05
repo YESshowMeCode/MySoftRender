@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
 
@@ -60,21 +57,21 @@ namespace SoftRender.Render
             {
                 m_DepthBuffer[index] = float.MaxValue;
             }
-            //unsafe
-            //{
-            //    byte* ptr = (byte*)(bmpData.Scan0);
-            //    for(int i = 0; i < bmpData.Height; i++)
-            //    {
-            //        for(int j = 0; j < bmpData.Width; j++)
-            //        {
-            //            *ptr = 0;
-            //            *(ptr + 1) = 0;
-            //            *(ptr + 2) = 0;
-            //            ptr += 3;
-            //        }
-            //        ptr += bmpData.Stride - bmpData.Width * 3;
-            //    }
-            //}
+            unsafe
+            {
+                byte* ptr = (byte*)(bmpData.Scan0);
+                for (int i = 0; i < bmpData.Height; i++)
+                {
+                    for (int j = 0; j < bmpData.Width; j++)
+                    {
+                        *ptr = 0;
+                        *(ptr + 1) = 0;
+                        *(ptr + 2) = 0;
+                        ptr += 3;
+                    }
+                    ptr += bmpData.Stride - bmpData.Width * 3;
+                }
+            }
         }
 
 
@@ -84,6 +81,15 @@ namespace SoftRender.Render
             if (m_DepthBuffer[index] < z)
                 return;
             m_DepthBuffer[index] = z;
+
+            unsafe
+            {
+                byte* ptr = (byte*)(this.m_BmpData.Scan0);
+                byte* row = ptr + (y * this.m_BmpData.Stride);
+                row[x * 3] = col.B;
+                row[x * 3 + 1] = col.G;
+                row[x * 3 + 2] = col.R;
+            }
         }
 
         public Vector4 Projection(Vector4 vector,Matrix4x4 mvp)
@@ -96,7 +102,7 @@ namespace SoftRender.Render
         private Vector4 ProjectionDev(Vector4 v)
         {
             Vector4 vec = new Vector4();
-            float rhw = 1.0f / v.x;
+            float rhw = 1.0f / v.w;
             vec.x = (1.0f + v.x * rhw) * Width * 0.5f;
             vec.y = (1.0f - v.y * rhw) * Height * 0.5f;
             vec.z = v.z * rhw;
@@ -208,6 +214,16 @@ namespace SoftRender.Render
             byte red = 0;
             byte green = 0;
             byte blue = 0;
+
+            unsafe
+            {
+                byte* ptr = (byte*)(texture.bitmapData.Scan0);
+                byte* row = ptr + (y * texture.bitmapData.Stride);
+
+                red = row[x * 3 + 2];
+                green = row[x * 3 + 1];
+                blue = row[x * 3];
+            }
             return new Color3(red, green, blue);
         }
     }

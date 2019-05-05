@@ -1,98 +1,68 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SoftRender.Render
 {
-    class Color3
+    // rgb 0-255
+    public struct Color3
     {
+        public byte R;
+        public byte G;
+        public byte B;
 
-        public float _r;
-        public float _g;
-        public float _b;
-
-
-        public Color3()
+        /// <summary>
+        /// 用rgb构造一个颜色
+        /// </summary>
+        /// <param name="red"></param>
+        /// <param name="green"></param>
+        /// <param name="blue"></param>
+        public Color3(byte red, byte green, byte blue)
+            : this()
         {
-
+            this.R = red;
+            this.G = green;
+            this.B = blue;
         }
 
-        public Color3(float r, float g, float b)
+        /// <summary>
+        /// 颜色之间相乘
+        /// </summary>
+        /// <param name="c1"></param>
+        /// <param name="c2"></param>
+        /// <returns></returns>
+        public static Color3 operator *(Color3 c1, Color3 c2)
         {
-            this._r = MathUntil.Range(r, 0, 1);
-            this._g = MathUntil.Range(g, 0, 1);
-            this._b = MathUntil.Range(b, 0, 1);
+            float r = (c1.R / 255f) * (c2.R / 255f);
+            float g = (c1.G / 255f) * (c2.G / 255f);
+            float b = (c1.B / 255f) * (c2.B / 255f);
+            return new Color3((byte)(r * 255), (byte)(g * 255), (byte)(b * 255));
         }
 
-        public Color3(System.Drawing.Color c)
+        /// <summary>
+        /// 颜色乘数值
+        /// </summary>
+        /// <param name="c1"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static Color3 operator *(Color3 c1, float t)
         {
-            this._r = MathUntil.Range((float)c.R / 255, 0, 1);
-            this._g = MathUntil.Range((float)c.G / 255, 0, 1);
-            this._b = MathUntil.Range((float)c.B / 255, 0, 1);
+            byte r = (byte)Math.Min((c1.R * t), 255);
+            byte g = (byte)Math.Min((c1.G * t), 255);
+            byte b = (byte)Math.Min((c1.B * t), 255);
+            return new Color3(r, g, b);
         }
 
-        public float r
+        /// <summary>
+        /// 颜色相加
+        /// </summary>
+        /// <param name="c1"></param>
+        /// <param name="c2"></param>
+        /// <returns></returns>
+        public static Color3 operator +(Color3 c1, Color3 c2)
         {
-            get
-            {
-                return MathUntil.Range(_r, 0, 1);
-            }
-            set
-            {
-                _r = MathUntil.Range(value, 0, 1);
-            }
-        }
-
-        public float g
-        {
-            get
-            {
-                return MathUntil.Range(_g, 0, 1);
-            }
-            set
-            {
-                _g = MathUntil.Range(value, 0, 1);
-            }
-        }
-
-        public float b
-        {
-            get { return MathUntil.Range(_b, 0, 1); }
-            set { _b = MathUntil.Range(value, 0, 1); }
-        }
-
-
-        public static Color3 Lerp(Color3 right, Color3 left, float f)
-        {
-            return new Color3(right.r * f + left.r * (1 - f), right.g * f + left.g * (1 - f), right.b * f + left.b * (1 - f));
-        }
-
-
-        public static Color3 operator +(Color3 right, Color3 left)
-        {
-            return new Color3(right.r + left.r, right.g + left.g, right.b + left.b);
-        }
-
-        public static Color3 operator -(Color3 right, Color3 left)
-        {
-            return new Color3(right.r - left.r, right.g - left.g, right.b - left.b);
-        }
-
-        public static Color3 operator *(Color3 right, float f)
-        {
-            return new Color3(right.r * f, right.g * f, right.b * f);
-        }
-
-        public static Color3 operator *(Color3 right, Color3 left)
-        {
-            Color3 col = new Color3();
-            col.r = (right.r / 255) * (left.r / 255);
-            col.g = (right.g / 255) * (left.g / 255);
-            col.b = (right.b / 255) * (left.b / 255);
-            return col;
-
+            byte r = (byte)Math.Min(c1.R + c2.R, 255);
+            byte g = (byte)Math.Min(c1.G + c2.G, 255);
+            byte b = (byte)Math.Min(c1.B + c2.B, 255);
+            return new Color3(r, g, b);
         }
     }
 }

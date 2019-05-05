@@ -8,10 +8,10 @@ namespace SoftRender.Render
 {
     public enum FaceType
     {
-        LEFT = 1,
+        LEFT = 0,
         RIGHT,
-        BUTTOM,
         TOP,
+        BUTTOM,
         NEAR,
         FAR,
         NONE,
