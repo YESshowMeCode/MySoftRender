@@ -1,204 +1,243 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SoftRender.Render
 {
-    class Mesh
-    {
-        private string m_Name;
-        private Vertex[] m_VertexBuffer;
-        private Face[] m_Face;
-        private Material m_Material;
-        private RenderTexture[] m_RenderTexture;
-        private Matrix4x4 m_Transform;
-        private Clip m_HodgmanClip;
-        private ScanLine m_ScanLine;
-        
-        public string Name
-        {
-            get { return m_Name; }
-        }
+	class Mesh
+	{
+		private string mName;
+		private Vertex[] mVertices;
+		private Face[] mFaces;
 
-        public Vertex[] VertexBuffer
-        {
-            get { return m_VertexBuffer; }
-            set { m_VertexBuffer = value; }
-        }
+		private Material mMaterial;
+		private Matrix4x4 mTransform;
+		private RenderTexture[] mTextureMaps;
+		private Clip mHodgmanclip;
+		private ScanLine mScanline;
 
-        public Face[] Face
-        {
-            get { return m_Face; }
-            set { m_Face = value; }
-        }
+		/// <summary>
+		/// 模型名称
+		/// </summary>
+		public string Name
+		{
+			get { return mName; }
+		}
 
-        public Material Material
-        {
-            get { return m_Material; }
-            set { m_Material = value; }
-        }
+		/// <summary>
+		/// 顶点集合
+		/// </summary>
+		public Vertex[] Vertices
+		{
+			get { return mVertices; }
+			set { mVertices = value; }
+		}
 
-        public RenderTexture[] RenderTexture
-        {
-            get { return m_RenderTexture; }
-            set { m_RenderTexture = value; }
-        }
+		/// <summary>
+		/// 模型面
+		/// </summary>
+		public Face[] Faces
+		{
+			get { return mFaces; }
+			set { mFaces = value; }
+		}
 
+		/// <summary>
+		/// 材质
+		/// </summary>
+		public Material Material
+		{
+			get { return mMaterial; }
+			set { mMaterial = value; }
+		}
 
-        public Matrix4x4 Transform
-        {
-            get { return m_Transform; }
-            set { m_Transform = value; }
-        }
+		/// <summary>
+		/// 模型的矩阵
+		/// </summary>
+		public Matrix4x4 Transform
+		{
+			get { return mTransform; }
+			set { mTransform = value; }
+		}
 
-        public Mesh(string name)
-        {
-            m_Name = name;
-            m_Material = new Material(0.9f, new Color3(200, 200, 200));
-            m_Transform = new Matrix4x4(1);
-        }
+		/// <summary>
+		/// 贴图
+		/// </summary>
+		public RenderTexture[] TextureMaps
+		{
+			get { return mTextureMaps; }
+			set { mTextureMaps = value; }
+		}
+		/// <summary>
+		/// 顶点数量和名字构造
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="verticesCount"></param>
+		public Mesh(string name)
+		{
+			mName = name;
+			mMaterial = new Material(0.9f, new Color3(200, 200, 200));
+			mTransform = new Matrix4x4(1);
+		}
 
-        public List<Triangle> GetDrawTriangleList(List<Vertex> vertexs)
-        {
-            List<Triangle> list = new List<Triangle>();
-            for (int i = 0; i < vertexs.Count - 2; i++)
-            {
-                list.Add(new Triangle(vertexs[0], vertexs[i + 1], vertexs[i + 2]));
-            }
-            return list;
-        }
+		/// <summary>
+		/// 获取要画的三角形列表
+		/// </summary>
+		/// <param name="vertex"></param>
+		/// <returns></returns>
+		public List<Triangle> GetDrawTriangleList(List<Vertex> vertex)
+		{
+			List<Triangle> t = new List<Triangle>();
+			for (int i = 0; i < vertex.Count - 2; i++)
+			{
+				t.Add(new Triangle(vertex[0], vertex[i + 1], vertex[i + 2]));
+			}
+			return t;
+		}
 
-        public RenderTexture GetTextureByFace(FaceType type)
-        {
-            if (m_RenderTexture.Length == 0)
-                return null;
+		/// <summary>
+		/// 根据模型的面的方向返回贴图
+		/// </summary>
+		/// <param name="types"></param>
+		/// <returns></returns>
+		public RenderTexture GetTextureByFace(FaceTypes types)
+		{
+			if (mTextureMaps.Length == 0)
+				return null;
 
-            if (type == FaceType.NONE)
-            {
-                return m_RenderTexture[0];
-            }
-            else
-            {
-                int index = (int)type;
-                if (m_RenderTexture.Length == 6 && index >= 0 && index < 6)
-                {
-                    return m_RenderTexture[index];
-                }
-                else
-                {
-                    return m_RenderTexture[0];
-                }
-            }
+			if (types == FaceTypes.NONE)
+			{
+				return mTextureMaps[0];
+			}
+			else
+			{
+				int index = (int)types;
+				if (mTextureMaps.Length == 6 && index >= 0 && index < 6)
+					return mTextureMaps[index];
+				else
+					return mTextureMaps[0];
+			}
+		}
+	
+		/// <summary>
+		/// 计算顶点所受的光照的颜色
+		/// </summary>
+		/// <param name="position"></param>
+		/// <param name="normal"></param>
+		/// <param name="light"></param>
+		/// <returns></returns>
+		public Color3 GetLightColor(Vector4 position, Vector4 normal, Light light)
+		{
+			// 环境光
+			Color3 ambient = light.Color * mMaterial.AmbientStregth;
+			// 漫反射
+			Vector4 nor = normal * mTransform;
+			Vector4 lightdir = (light.Position - position).Normalize();
+			float diff = Math.Max(Vector4.Dot(normal.Normalize(), lightdir), 0);
+			Color3 diffuse = mMaterial.Diffuse * diff;
+			return ambient + diffuse;
+		}
 
-        }
+		/// <summary>
+		/// 设备渲染事件
+		/// </summary>
+		/// <param name="scene"></param>
+		/// <param name="bmp"></param>
+		/// <param name="viewMatrix"></param>
+		public void Render(Scene scene, Device device, Matrix4x4 viewMat, Matrix4x4 proMat)
+		{
+			Matrix4x4 viewMatrix = mTransform * viewMat * proMat;
+			foreach (var faces in mFaces)
+			{
+				Vertex verA = mVertices[faces.A];
+				Vertex verB = mVertices[faces.B];
+				Vertex verC = mVertices[faces.C];
 
+				Vertex verA2 = new Vertex();
+				Vertex verB2 = new Vertex();
+				Vertex verC2 = new Vertex();
 
-        public Color3 GetLightColor(Vector4 position ,Vector4 normal,Light light)
-        {
-            Color3 ambient = light.Color * m_Material.AmbientStrength;
-            Vector4 nor = normal * m_Transform;
-            Vector4 lightDir = (light.Position - position).Normalize();
-            float diff = Math.Max(Vector4.Dot(normal.Normalize(), lightDir), 0);
-            Color3 diffuse = m_Material.Diffuse * diff;
-            return ambient + diffuse;
-        }
+				if (scene.IsUseLight && scene.Lights != null)
+				{
+					verA2.LightColor = GetLightColor(verA.Position, verA.Normal, scene.Lights);
+					verB2.LightColor = GetLightColor(verA.Position, verB.Normal, scene.Lights);
+					verC2.LightColor = GetLightColor(verA.Position, verC.Normal, scene.Lights);
+				}
 
-        public void Render(Scene scene,Device device,Matrix4x4 viewMat,Matrix4x4 projMat)
-        {
-            Matrix4x4 viewMatrix = m_Transform * viewMat * projMat;
+				// 转换到齐次坐标
+				verA.ClipPosition = device.ToHomogeneous(verA.Position, viewMatrix);
+				verB.ClipPosition = device.ToHomogeneous(verB.Position, viewMatrix);
+				verC.ClipPosition = device.ToHomogeneous(verC.Position, viewMatrix);
 
-            foreach(var faces in m_Face)
-            {
-                Vertex verA = m_VertexBuffer[faces.A];
-                Vertex verB = m_VertexBuffer[faces.B];
-                Vertex verC = m_VertexBuffer[faces.C];
+				verA2.Color = verA.Color;
+				verB2.Color = verB.Color;
+				verC2.Color = verC.Color;
 
-                Vertex verA2 = new Vertex();
-                Vertex verB2 = new Vertex();
-                Vertex verC2 = new Vertex();
+				//对应屏幕坐标 左上角
+				verA.ScreenPosition = device.ViewPort(verA.ClipPosition);
+				verB.ScreenPosition = device.ViewPort(verB.ClipPosition);
+				verC.ScreenPosition = device.ViewPort(verC.ClipPosition);
 
-                if (scene.UseLight && scene.Light != null)
-                {
-                    verA2.LightColor = GetLightColor(verA.Position, verA.Normal, scene.Light);
-                    verB2.LightColor= GetLightColor(verA.Position, verB.Normal, scene.Light);
-                    verC2.LightColor= GetLightColor(verA.Position, verC.Normal, scene.Light);
-                }
+				verA2.ClipPosition = verA.ClipPosition;
+				verA2.ScreenPosition = verA.ScreenPosition;
+				verA2.Position = mTransform.LeftApply(verA.Position);
+				verA2.UV = verA.UV;
 
-                verA.ClipPosition = device.ToHomogeneous(verA.Position, viewMatrix);
-                verB.ClipPosition = device.ToHomogeneous(verB.Position, viewMatrix);
-                verC.ClipPosition = device.ToHomogeneous(verC.Position, viewMatrix);
+				verB2.ClipPosition = verB.ClipPosition;
+				verB2.ScreenPosition = verB.ScreenPosition;
+				verB2.Position = mTransform.LeftApply(verB.Position);
+				verB2.UV = verB.UV;
 
-                verA2.Color = verA.Color;
-                verB2.Color = verB.Color;
-                verC2.Color = verC.Color;
+				verC2.ClipPosition = verC.ClipPosition;
+				verC2.ScreenPosition = verC.ScreenPosition;
+				verC2.Position = mTransform.LeftApply(verC.Position);
+				verC2.UV = verC.UV;
 
+				verA2.Normal = verA.Normal;
+				verB2.Normal = verB.Normal;
+				verC2.Normal = verC.Normal;
 
-                verA.ScreenPosition = device.ViewPort(verA.ClipPosition);
-                verB.ScreenPosition = device.ViewPort(verB.ClipPosition);
-                verC.ScreenPosition = device.ViewPort(verC.ClipPosition);
+				List<Vertex> list = new List<Vertex>();
+				list.Add(verA2);
+				list.Add(verB2);
+				list.Add(verC2);
+				Triangle triang1 = new Triangle(verA2, verB2, verC2);
+				//进行裁剪
+				List<Vertex> triangleVertex = new List<Vertex>();
+				//放在构造函数中初始化引起list 集合累加
 
-                verA2.ClipPosition = verA.ClipPosition;
-                verA2.ScreenPosition = verA.ScreenPosition;
-                verA2.Position = m_Transform.LeftApply(verA.Position);
-                verA2.UV = verA.UV;
+				for (FaceTypes face = FaceTypes.LEFT; face <= FaceTypes.FAR; face++)
+				{
+					if (list.Count == 0) break;
+					mHodgmanclip = new Clip(device);
+					mHodgmanclip.HodgmanPolygonClip(face, Device.sClipmin, Device.sClipmax, list.ToArray());
+					list = mHodgmanclip.OutputList;
+				}
 
-                verB2.ClipPosition = verB.ClipPosition;
-                verB2.ScreenPosition = verB.ScreenPosition;
-                verB2.Position = m_Transform.LeftApply(verB.Position);
-                verB2.UV = verB.UV;
+				List<Triangle> tringleList = GetDrawTriangleList(list);
+				if (device.RenderMode == RenderMode.WIREFRAME)
+				{
+					for (int i = 0; i < tringleList.Count; i++)
+					{
+						if (!device.IsInBack(tringleList[i]))
+						{
+							device.DrawLine(device.ViewPort(tringleList[i].Vertices[0].ClipPosition), device.ViewPort(tringleList[i].Vertices[1].ClipPosition), scene, tringleList[i].Vertices[0], tringleList[i].Vertices[1]);
+							device.DrawLine(device.ViewPort(tringleList[i].Vertices[1].ClipPosition), device.ViewPort(tringleList[i].Vertices[2].ClipPosition), scene, tringleList[i].Vertices[1], tringleList[i].Vertices[2]);
+							device.DrawLine(device.ViewPort(tringleList[i].Vertices[2].ClipPosition), device.ViewPort(tringleList[i].Vertices[0].ClipPosition), scene, tringleList[i].Vertices[2], tringleList[i].Vertices[0]);
+						}
+					}
+				}
+				else
+				{
+					if (mScanline == null)
+						mScanline = new ScanLine(device);
+					for (int i = 0; i < tringleList.Count; i++)
+					{
+						if (!device.IsInBack(tringleList[i]))
+							mScanline.ProcessScanLine(tringleList[i], scene, triang1, faces.FaceType, this);
+					}
+				}
+			}
+		}
 
-                verC2.ClipPosition = verC.ClipPosition;
-                verC2.ScreenPosition = verC.ScreenPosition;
-                verC2.Position = m_Transform.LeftApply(verC.Position);
-                verC2.UV = verC.UV;
-
-                verA2.Normal = verA.Normal;
-                verB2.Normal = verB.Normal;
-                verC2.Normal = verC.Normal;
-
-                List<Vertex> list = new List<Vertex>();
-                list.Add(verA2);
-                list.Add(verB2);
-                list.Add(verC2);
-                Triangle triang1 = new Triangle(verA2, verB2, verC2);
-                List<Vertex> triangleVertex = new List<Vertex>();
-
-                for (FaceType face = FaceType.LEFT; face <= FaceType.FAR; face++)
-                {
-                    if (list.Count == 0) break;
-                    m_HodgmanClip = new Clip(device);
-                    m_HodgmanClip.HodgmanPolygonClip(face, Device.sClipMin, Device.sClipMax, list.ToArray());
-                    list = m_HodgmanClip.OutputList;
-                }
-
-                List<Triangle> tringleList = GetDrawTriangleList(list);
-                if (device.RenderMode == RenderMode.WIREFRAME)
-                {
-                    for (int i = 0; i < tringleList.Count; i++)
-                    {
-                        if (!device.IsInBack(tringleList[i]))
-                        {
-                            device.DrawLine(device.ViewPort(tringleList[i].Vertexs[0].ClipPosition), device.ViewPort(tringleList[i].Vertexs[1].ClipPosition), scene, tringleList[i].Vertexs[0], tringleList[i].Vertexs[1]);
-                            device.DrawLine(device.ViewPort(tringleList[i].Vertexs[1].ClipPosition), device.ViewPort(tringleList[i].Vertexs[2].ClipPosition), scene, tringleList[i].Vertexs[1], tringleList[i].Vertexs[2]);
-                            device.DrawLine(device.ViewPort(tringleList[i].Vertexs[2].ClipPosition), device.ViewPort(tringleList[i].Vertexs[0].ClipPosition), scene, tringleList[i].Vertexs[2], tringleList[i].Vertexs[0]);
-                        }
-                    }
-                }
-                else
-                {
-                    if (m_ScanLine == null)
-                        m_ScanLine = new ScanLine(device);
-                    for (int i = 0; i < tringleList.Count; i++)
-                    {
-                        if (!device.IsInBack(tringleList[i]))
-                            m_ScanLine.ProcessScanLine(tringleList[i], scene, triang1, faces.FaceType, this);
-                    }
-                }
-            }
-
-        }
-
-    }
+	}
 }

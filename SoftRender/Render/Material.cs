@@ -1,34 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace SoftRender.Render
 {
-    class Material
-    {
+	class Material
+	{
+		private float mAmbientStregth;
+		private Color3 mDiffuse;
 
-        private float m_AmbientStrength;
-        private Color3 m_Diffuse;
+		/// <summary>
+		/// 环境光系数
+		/// </summary>
+		public float AmbientStregth
+		{
+			get { return mAmbientStregth; }
+			set { mAmbientStregth = value; }
+		}
 
-        public float AmbientStrength
-        {
-            get { return m_AmbientStrength; }
-            set { m_AmbientStrength = value; }
-        }
+		/// <summary>
+		/// 光颜色
+		/// </summary>
+		public Color3 Diffuse
+		{
+			get { return mDiffuse; }
+			set { mDiffuse = value; }
+		}
 
-        public Color3 Diffuse
-        {
-            get { return m_Diffuse; }
-            set { m_Diffuse = value; }
-        }   
-
-        public Material(float ambient,Color3 color)
-        {
-            m_AmbientStrength = ambient;
-            m_Diffuse = color;
-        }
-
-    }
+		/// <summary>
+		/// 指定一个环境光系数和一个漫反射光来构造材质
+		/// </summary>
+		/// <param name="ambient"></param>
+		/// <param name="color"></param>
+		public Material(float ambient, Color3 color)
+		{
+			mAmbientStregth = ambient;
+			mDiffuse = color;
+		}
+	}
 }

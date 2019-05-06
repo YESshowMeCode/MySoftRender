@@ -65,7 +65,7 @@ namespace SoftRender
                 return;
 
             m_Cube = new Mesh("Cube");
-            m_Cube.VertexBuffer = new Vertex[24] {
+            m_Cube.Vertices = new Vertex[24] {
 				new Vertex(new Vector4(-1, -1, -1, 1), new Vector4(-1, -1, -1, 1), new Vector2(0, 0), new Color3(0, 0, 0)),
 				new Vertex(new Vector4(-1, -1, -1, 1), new Vector4(-1, -1, -1, 1), new Vector2(1, 0), new Color3(0, 0, 0)),
 				new Vertex(new Vector4(-1, -1, -1, 1), new Vector4(-1, -1, -1, 1), new Vector2(0, 0), new Color3(0, 0, 0)),
@@ -100,30 +100,30 @@ namespace SoftRender
 
 			};
 
-            m_Cube.Face = new Face[] {
+            m_Cube.Faces = new Face[] {
 				// 正面
-				new Face(2, 5, 8, FaceType.NEAR),
-				new Face(2, 8, 11, FaceType.NEAR),
+				new Face(2, 5, 8, FaceTypes.NEAR),
+				new Face(2, 8, 11, FaceTypes.NEAR),
 				// 右面
-				new Face(4, 16, 7, FaceType.RIGHT),
-				new Face(16, 19, 7, FaceType.RIGHT),
+				new Face(4, 16, 7, FaceTypes.RIGHT),
+				new Face(16, 19, 7, FaceTypes.RIGHT),
 				// 左面
-				new Face(13, 1, 10, FaceType.LEFT),
-				new Face(13, 10, 22, FaceType.LEFT),
+				new Face(13, 1, 10, FaceTypes.LEFT),
+				new Face(13, 10, 22, FaceTypes.LEFT),
 				// 背面
-				new Face(17, 14, 23, FaceType.FAR),
-				new Face(17, 23, 20, FaceType.FAR),
+				new Face(17, 14, 23, FaceTypes.FAR),
+				new Face(17, 23, 20, FaceTypes.FAR),
 				// 上面
-				new Face(9, 6, 18, FaceType.TOP),
-				new Face(9, 18, 21, FaceType.TOP),
+				new Face(9, 6, 18, FaceTypes.TOP),
+				new Face(9, 18, 21, FaceTypes.TOP),
 				// 下面
-				new Face(12, 15, 3, FaceType.BUTTOM),
-				new Face(12, 3, 0, FaceType.BUTTOM)
+				new Face(12, 15, 3, FaceTypes.BUTTOM),
+				new Face(12, 3, 0, FaceTypes.BUTTOM)
 			};
             RenderTexture[] textures = new RenderTexture[6];
             for (int i = 0; i < 6; i++)
-                textures[i] = new RenderTexture(@"env" + i.ToString() + ".bmp");
-            m_Cube.RenderTexture = textures;
+                textures[i] = new RenderTexture("Texture/env" + i.ToString() + ".bmp");
+            m_Cube.TextureMaps = textures;
 
             scene.AddMesh(m_Cube);
         }
@@ -185,11 +185,11 @@ namespace SoftRender
                 case Keys.F1:
                     Light light = new Light(new Vector4(5, 5, -5, 1), new Color3(200, 255, 255));
                     m_Scene.AddLight(light);
-                    m_Scene.UseLight = true;
+                    m_Scene.IsUseLight = true;
                     break;
                 case Keys.F2:
-                    m_Scene.DeleLight();
-                    m_Scene.UseLight = false;
+                    m_Scene.DelLight();
+                    m_Scene.IsUseLight = false;
                     break;
                 case Keys.Escape:
                     Close();
@@ -231,12 +231,12 @@ namespace SoftRender
             {
                 float x = e.X;
                 float y = e.Y;
-                float dx = m_MouseLeftPos.x - x;
-                float dy = m_MouseLeftPos.x - y;
+                float dx = m_MouseLeftPos.X - x;
+                float dy = m_MouseLeftPos.X - y;
                 m_Cube.Transform = m_Cube.Transform * Matrix4x4.RotateY(dx / 5f);
                 m_Cube.Transform = m_Cube.Transform * Matrix4x4.RotateX(dy / 5f);
-                m_MouseLeftPos.x = x;
-                m_MouseLeftPos.x = y;
+                m_MouseLeftPos.X = x;
+                m_MouseLeftPos.X = y;
                 this.Invalidate();
             }
         }
@@ -251,8 +251,8 @@ namespace SoftRender
             if (e.Button == MouseButtons.Left)
             {
                 m_IsMouseLeftDown = true;
-                m_MouseLeftPos.x = e.X;
-                m_MouseLeftPos.y = e.Y;
+                m_MouseLeftPos.X = e.X;
+                m_MouseLeftPos.X = e.Y;
             }
         }
 
@@ -266,8 +266,8 @@ namespace SoftRender
             if (e.Button == MouseButtons.Left)
             {
                 m_IsMouseLeftDown = false;
-                m_MouseLeftPos.x = 0f;
-                m_MouseLeftPos.y = 0f;
+                m_MouseLeftPos.X = 0f;
+                m_MouseLeftPos.X = 0f;
             }
         }
 

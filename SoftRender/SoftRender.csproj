@@ -57,7 +57,7 @@
     <Compile Include="Render\Face.cs" />
     <Compile Include="Render\Light.cs" />
     <Compile Include="Render\Material.cs" />
-    <Compile Include="Render\MathUntil.cs" />
+    <Compile Include="Render\MathUnilt.cs" />
     <Compile Include="Render\Matrix4x4.cs" />
     <Compile Include="Render\RenderTexture.cs" />
     <Compile Include="Render\ScanLine.cs" />

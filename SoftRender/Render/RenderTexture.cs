@@ -1,78 +1,92 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace SoftRender.Render
 {
-    class RenderTexture
-    {
+	class RenderTexture
+	{
+		private Bitmap mTexture;
+		private int mWidth;
+		private int mHeight;
 
-        private Bitmap m_Texture;
-        private int m_Width;
-        private int m_height;
+		/// <summary>
+		/// 要渲染的图片的真实数据
+		/// </summary>
+		public Bitmap Texture
+		{
+			get { return mTexture; }
+		}
 
-        public Bitmap Texture
-        {
-            get { return m_Texture; }
-        }
+		/// <summary>
+		/// 构造函数，从本地文件中读取一个文件
+		/// </summary>
+		/// <param name="filePath"></param>
+		public RenderTexture(string filePath)
+		{
+			try
+			{
+				Image img = Image.FromFile(filePath);
+				mWidth = img.Width;
+				mHeight = img.Height;
+				mTexture = new Bitmap(img, mWidth, mHeight);
+			}
+			catch
+			{
+				mWidth = 256;
+				mHeight = 256;
+				mTexture = new Bitmap(mWidth, mHeight);
+				FillTextureWithRed();
+			}
+		}
 
-        public RenderTexture(string filePath)
-        {
-            try
-            {
-                Image img = Image.FromFile(filePath);
-                m_Width = img.Width;
-                m_height = img.Height;
-                m_Texture = new Bitmap(img, m_Width, m_height);
-            }
-            catch
-            {
-                m_Width = 256;
-                m_height = 256;
-                m_Texture = new Bitmap(m_Width, m_height);
-                FileTextureWithRed();
-            }
-        }
+		/// <summary>
+		/// 设置用红色填充一张图片
+		/// </summary>
+		private void FillTextureWithRed()
+		{
+			for (int i = 0; i < mWidth; i++)
+			{
+				for (int j = 0; j < mHeight; j++)
+				{
+					mTexture.SetPixel(i, j, System.Drawing.Color.Red);
+				}
+			}
+		}
 
-        public void FileTextureWithRed()
-        {
-            for(int i = 0; i < m_Width; ++i)
-            {
-                for(int j = 0; j < m_height; ++j)
-                {
-                    m_Texture.SetPixel(i, j, System.Drawing.Color.Red);
-                }
-            }
-        }
+		/// <summary>
+		/// 获取某一位置颜色
+		/// </summary>
+		/// <param name="posX"></param>
+		/// <param name="posY"></param>
+		/// <returns></returns>
+		public Color3 GetPixelColor(int posX, int posY)
+		{
+			posX = posX > 0 ? posX : 0;
+			posX = posX >= mWidth ? mWidth - 1 : posX;
 
-        public Color3 GetPixelColor(int x,int y)
-        {
-            x = x > 0 ? x : 0;
-            x = x > m_Width ? m_Width - 1 : x;
+			posY = posY > 0 ? posY : 0;
+			posY = posY >= mHeight ? mHeight - 1 : posY;
+			System.Drawing.Color col = mTexture.GetPixel(posX, posY);
+			return new Color3(col.R, col.G, col.B);
+		}
 
-            y = y > 0 ? y : 0;
-            y = y > m_height ? m_height - 1 : y;
+		/// <summary>
+		/// 按照比例获取某一位置颜色
+		/// </summary>
+		/// <param name="posXrate"></param>
+		/// <param name="posYrate"></param>
+		/// <returns></returns>
+		public Color3 GetPixelColor(float posXrate, float posYrate)
+		{
+			int posX = (int)(posXrate * (mWidth - 1));
+			int posY = (int)(posYrate * (mHeight - 1));
+			posX = posX > 0 ? posX : 0;
+			posX = posX >= mWidth ? mWidth - 1 : posX;
 
-            System.Drawing.Color col = m_Texture.GetPixel(x, y);
-            return new Color3(col.R, col.G, col.B);
-        }
+			posY = posY > 0 ? posY : 0;
+			posY = posY >= mHeight ? mHeight - 1 : posY;
+			System.Drawing.Color col = mTexture.GetPixel(posX, posY);
+			return new Color3(col.R, col.G, col.B);
+		}
 
-        public Color3 GetPixelColor(float xRate,float yRate)
-        {
-            int x = (int)(xRate * (m_Width - 1));
-            int y = (int)(yRate * (m_height - 1));
-            x = x > 0 ? x : 0;
-            x = x > m_Width ? m_Width - 1 : x;
-
-            y = y > 0 ? y : 0;
-            y = y > m_height ? m_height - 1 : y;
-
-            System.Drawing.Color col = m_Texture.GetPixel(x, y);
-            return new Color3(col.R, col.G, col.B);
-        }
-
-    }
+	}
 }

@@ -1,51 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
 
 namespace SoftRender.Render
 {
-    class TextureMap
-    {
-        public int width;
-        public int height;
-        public Bitmap bitmap;
-        public BitmapData bitmapData;
+	class TextureMap
+	{
+		public Bitmap bitmap;
+		public BitmapData data;
+		public int Width;
+		public int Height;
 
-        public TextureMap(string fileName,int width,int height)
-        {
-            this.width = width;
-            this.height = height;
-            bitmap = new Bitmap(fileName);
-        }
+		public TextureMap(string filename,int width,int height)
+		{
+			this.Width = width;
+			this.Height = height;
+			bitmap = new Bitmap(filename);
+		}
 
-        public int GetWidth()
-        {
-            return width;
-        }
+		public int GetWidth()
+		{
+			return this.Width;
 
-        public int GetHeight()
-        {
-            return height;
-        }
+		}
+		public int GetHeight()
+		{
+			return this.Height;
+		}
 
-        public BitmapData getBitmapData()
-        {
-            return bitmapData;
-        }
+		public BitmapData getBitmapData()
+		{
+			return this.data;
+		}
 
-        public BitmapData LockBits()
-        {
-            bitmapData = bitmap.LockBits(new Rectangle(0, 0, width, height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
-            return bitmapData;
-        }
+		public BitmapData LockBits()
+		{
+			this.data = bitmap.LockBits(new Rectangle(0,0,Width,Height),ImageLockMode.ReadWrite,PixelFormat.Format24bppRgb);
+			return this.data;
+		}
 
-        public void UnLockBits()
-        {
-            bitmap.UnlockBits(bitmapData);
-        }
-    }
+		public void UnLockBits()
+		{
+			bitmap.UnlockBits(this.data);
+		}
+	}
 }

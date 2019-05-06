@@ -1,89 +1,105 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace SoftRender.Render
 {
-    class Vertex
-    {
+	class Vertex
+	{
+		private Vector4 mPosition;
+		private Vector4 mNormal;
+		private Vector2 mUV;
+		private Color3 mColor;
+		private Color3 mLightColor;
+		//进行扫描线算法的时候用到的 
+		private Vector4 mScreenPosition;
+		private Vector4 mClipPosition;
 
-        private Vector4 m_Position;
-        private Vector4 m_Normal;
-        private Vector2 m_UV;
-        private Color3 m_Color;
-        private Color3 m_LightColor;
+		/// <summary>
+		/// 顶点位置
+		/// </summary>
+		public Vector4 Position
+		{
+			get { return mPosition; }
+			set { mPosition = value; }
+		}
 
-        private Vector4 m_ScreenPosition;
-        private Vector4 m_ClipPosition;
+		/// <summary>
+		/// 法线
+		/// </summary>
+		public Vector4 Normal
+		{
+			get { return mNormal; }
+			set { mNormal = value; }
+		}
 
+		/// <summary>
+		/// 纹理坐标
+		/// </summary>
+		public Vector2 UV
+		{
+			get { return mUV; }
+			set { mUV = value; }
+		}
 
-        public Vector4 Position
-        {
-            get { return m_Position; }
-            set { m_Position = value; }
-        }
+		/// <summary>
+		/// 顶点色
+		/// </summary>
+		public Color3 Color
+		{
+			get { return mColor; }
+			set { mColor = value; }
+		}
+	
+		/// <summary>
+		/// 光照颜色，用来在计算的时候做插值
+		/// </summary>
+		public Color3 LightColor
+		{
+			get { return mLightColor; }
+			set { mLightColor = value; }
+		}
 
-        public Vector4 Normal
-        {
-            get { return m_Normal; }
-            set { m_Normal = value; }
-        }
+		/// <summary>
+		/// 屏幕上的位置
+		/// </summary>
+		public Vector4 ScreenPosition
+		{
+			get { return mScreenPosition; }
+			set { mScreenPosition = value; }
+		}
 
-        public Vector2 UV
-        {
-            get { return m_UV; }
-            set { m_UV = value; }
-        }
+		/// <summary>
+		/// 裁剪位置
+		/// </summary>
+		public Vector4 ClipPosition
+		{
+			get { return mClipPosition; }
+			set { mClipPosition = value; }
+		}
 
-        public Color3 Color
-        {
-            get { return m_Color; }
-            set { m_Color = value; }
-        }
+		public Vertex()
+		{
+			this.mLightColor = new Color3(255, 255, 255);
+		}
 
-        public Color3 LightColor
-        {
-            get { return m_LightColor; }
-            set { m_LightColor = value; }
-        }
+		public Vertex(Vector4 position, Vector4 normal, Vector2 uv, Color3 c)
+		{
+			this.mPosition = position;
+			this.mNormal = normal;
+			this.mUV = uv;
+			this.mColor = c;
+			this.mLightColor = new Color3(255, 255, 255);
+		}
 
-        public Vector4 ScreenPosition
-        {
-            get { return m_ScreenPosition; }
-            set { m_ScreenPosition = value; }
-        }
+		/// <summary>
+		/// 交换两个顶点
+		/// </summary>
+		/// <param name="v1"></param>
+		/// <param name="v2"></param>
+		public static void SwapVertex(ref Vertex v1, ref Vertex v2)
+		{
+			var tempv = v2;
+			v2 = v1;
+			v1 = tempv;
+		}
 
-        public Vector4 ClipPosition
-        {
-            get { return m_ClipPosition; }
-            set { m_ClipPosition = value; }
-        }
-
-        public Vertex()
-        {
-            m_LightColor = new Color3(255, 255, 255);
-        }
-
-        public Vertex(Vector4 position, Vector4 normal,Vector2 uv,Color3 col)
-        {
-            m_Position = position;
-            m_Normal = normal;
-            m_UV = uv;
-            m_Color = col;
-            m_LightColor = new Color3(255, 255, 255);
-        }
-
-        public static void SwapVertex(ref Vertex v1,ref Vertex v2)
-        {
-            Vertex tempv = v2;
-            v2 = v1;
-            v1 = tempv;
-        }
-
-
-
-
-    }
+	}
 }

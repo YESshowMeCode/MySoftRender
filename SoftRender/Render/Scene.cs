@@ -1,79 +1,103 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SoftRender.Render
 {
-    class Scene
-    {
-        private Light m_Light;
-        private Camera m_Camera;
-        private List<Mesh> m_Mesh;
-        private bool m_UseLight;
+	class Scene
+	{
+		private Light mLight;
+		private Camera mCamera;
+		private List<Mesh> mMeshs;
+		private bool mUseLight;
 
-        public Light Light
-        {
-            get { return m_Light; }
-        }
+		/// <summary>
+		/// 光照
+		/// </summary>
+		public Light Lights
+		{
+			get { return mLight; }
+		}
 
-        public List<Mesh> Meshs
-        {
-            get { return m_Mesh; }
-        }
+		/// <summary>
+		/// 场景中的模型
+		/// </summary>
+		public List<Mesh> Meshs
+		{
+			get { return mMeshs; }
+		}
 
-        public Camera Camera
-        {
-            get { return m_Camera; }
-        }
+		/// <summary>
+		/// 场景摄像机
+		/// </summary>
+		public Camera Camera
+		{
+			get { return mCamera; }
+		}
 
-        public bool UseLight
-        {
-            get { return m_UseLight; }
-            set { m_UseLight = value; }
-        }
+		/// <summary>
+		/// 光照开关
+		/// </summary>
+		public bool IsUseLight
+		{
+			get { return mUseLight; }
+			set { mUseLight = value; }
+		}
 
-        public Scene()
-        {
-            m_UseLight = false;
-            InitCamera();
-        }
+		public Scene()
+		{
+			mUseLight = false;
+			InitCarmera();
+		}
 
-        public void InitCamera()
-        {
-            m_Camera = new Camera();
-            m_Camera.Position = new Vector4(0, 0, -5, 1);
-            m_Camera.Target = new Vector4(0, 0, 0, 1);
-            m_Camera.Up = new Vector4(0, 1, 0, 1);
-        }
+		/// <summary>
+		/// 为当前场景初始化一个摄像机
+		/// </summary>
+		public void InitCarmera()
+		{
+			mCamera = new Camera();
+			mCamera.Position = new Vector4(0,0,-5, 1);
+			mCamera.Target = new Vector4(0, 0, 0, 1);
+			mCamera.Up = new Vector4(0, 1, 0, 1);
+		}
 
-        public void AddLight(Light light)
-        {
-            m_Light = light;
-        }
+		/// <summary>
+		/// 添加一个光
+		/// </summary>
+		public void AddLight(Light light)
+		{
+			mLight = light;
+		}
 
-        public void DeleLight()
-        {
-            m_Light = null;
-        }
+		/// <summary>
+		/// 删除光
+		/// </summary>
+		/// <param name="light"></param>
+		public void DelLight()
+		{
+			mLight = null;
+		}
 
-        public void AddMesh(Mesh mesh)
-        {
-            if (m_Mesh == null)
-            {
-                m_Mesh = new List<Mesh>();
-            }
-            m_Mesh.Add(mesh);
-        }
+		/// <summary>
+		/// 增加一个渲染的模型
+		/// </summary>
+		/// <param name="msh"></param>
+		public void AddMesh(Mesh msh)
+		{
+			if (mMeshs == null)
+				mMeshs = new List<Mesh>();
 
-        public void Render(Device device ,Matrix4x4 viewMat,Matrix4x4 projMat)
-        {
-            foreach(Mesh mesh in m_Mesh)
-            {
-                mesh.Render(this, device, viewMat, projMat);
-            }
-        }
+			mMeshs.Add(msh);
+		}
 
-    }
+		/// <summary>
+		/// 渲染事件
+		/// </summary>
+		public void Render(Device device, Matrix4x4 viewMat, Matrix4x4 proMat)
+		{
+			// 模型渲染
+			foreach(Mesh msh in mMeshs)
+			{
+				msh.Render(this, device, viewMat, proMat);
+			}
+		}
+	}
 }

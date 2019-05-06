@@ -1,126 +1,149 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SoftRender.Render
 {
-    class Vector4
-    {
-        public float x;
-        public float y;
-        public float z;
-        public float w;
+	struct Vector4
+	{
+		public float X;
+		public float Y;
+		public float Z;
+		public float W;
 
-        public Vector4()
-        {
+		public float Length
+		{
+			get { return (float)Math.Sqrt(X * X + Y * Y + Z * Z); }
+		}
 
-        }
+		public Vector4(float x, float y, float z, float w) : this()
+		{
+			this.X = x;
+			this.Y = y;
+			this.Z = z;
+			this.W = w;
+		}
 
-        public Vector4(float x, float y, float z, float w)
-        {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-            this.w = w;
-        }
+		public Vector4(Vector4 vector)
+		{
+			this.X = vector.X;
+			this.Y = vector.Y;
+			this.Z = vector.Z;
+			this.W = vector.W;
+		}
 
-        public Vector4(float x, float y, float z)
-        {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-            this.w = 0;
-        }
+		/// <summary>
+		/// 矢量的加法
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
+		public static Vector4 operator +(Vector4 a,Vector4 b)
+		{
+			return new Vector4(a.X + b.X, a.Y + b.Y, a.Z + b.Z, 1);
+		}
 
-        public float length
-        {
-            get
-            {
-                float sq = x * x + y * y + z * z;
-                return (float)System.Math.Sqrt(sq);
-            }
-        }
+		/// <summary>
+		/// 矢量的减法
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
+		public static Vector4 operator -(Vector4 a,Vector4 b)
+		{
+			return new Vector4(a.X - b.X, a.Y - b.Y, a.Z - b.Z, 1);
+		}
 
-        public Vector4 Normalize()
-        {
-            return new Vector4(x / length, y / length, z / length, 1.0f);
-        }
+		/// <summary>
+		/// 矢量的值 乘法
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
+		public static Vector4 operator *(Vector4 a, float b)
+		{
+			return new Vector4(a.X * b, a.Y * b, a.Z * b, 1);
+		}
 
-        public static Vector4 operator +(Vector4 right, Vector4 left)
-        {
-            Vector4 vec = new Vector4();
-            vec.x = right.x + left.x;
-            vec.y = right.y + right.y;
-            vec.z = right.z + right.z;
-            vec.w = 0;
-            return vec;
-        }
+		/// <summary>
+		/// 向量和矩阵相乘
+		/// </summary>
+		/// <param name="lhs"></param>
+		/// <param name="rhs"></param>
+		/// <returns></returns>
+		public static Vector4 operator *(Vector4 lhs, Matrix4x4 rhs)
+		{
+			Vector4 v = new Vector4();
+			v.X = lhs.X * rhs[0, 0] + lhs.Y * rhs[1, 0] + lhs.Z * rhs[2, 0] + lhs.W * rhs[3, 0];
+			v.Y = lhs.X * rhs[0, 1] + lhs.Y * rhs[1, 1] + lhs.Z * rhs[2, 1] + lhs.W * rhs[3, 1];
+			v.Z = lhs.X * rhs[0, 2] + lhs.Y * rhs[1, 2] + lhs.Z * rhs[2, 2] + lhs.W * rhs[3, 2];
+			v.W = lhs.X * rhs[0, 3] + lhs.Y * rhs[1, 3] + lhs.Z * rhs[2, 3] + lhs.W * rhs[3, 3];
+			return v;
+		}
+		/// <summary>
+		/// 矢量与值得 除法
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
+		public static Vector4 operator /(Vector4 a, float b)
+		{
+			if (b != 0)
+				return new Vector4(a.X / b, a.Y / b, a.Z / b, 1);
+			return a;
+		}
 
-        public static Vector4 operator -(Vector4 right, Vector4 left)
-        {
-            Vector4 vec = new Vector4();
-            vec.x = right.x - left.x;
-            vec.y = right.y - left.y;
-            vec.z = right.z - left.z;
-            vec.w = 0;
-            return vec;
-        }
+		/// <summary>
+		/// 点乘
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
+		public static float Dot(Vector4 a, Vector4 b)
+		{
+			return a.X * b.X + a.Y * b.Y + a.Z * b.Z;
+		}
 
-        public static Vector4 operator *(Vector4 right, float f)
-        {
+		/// <summary>
+		/// 叉乘
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
+		public static Vector4 Cross(Vector4 a, Vector4 b)
+		{
+			float m1, m2, m3;
+			m1 = a.Y * b.Z - a.Z * b.Y;
+			m2 = a.Z * b.X - a.X * b.Z;
+			m3 = a.X * b.Y - a.Y * b.X;
+			return new Vector4(m1, m2, m3, 1f);
+		}
 
-            return new Vector4(right.x * f, right.y * f, right.z * f, 1);
-        }
+		/// <summary>
+		/// 归一化
+		/// </summary>
+		public Vector4 Normalize()
+		{
+			float length = (float)Math.Sqrt(this.X * this.X + this.Y * this.Y + this.Z * this.Z);
+			if (length != 0.0f)
+			{
+				float inv = 1.0f / length;
+				this.X *= inv;
+				this.Y *= inv;
+				this.Z *= inv;
+			}
+			return this;
+		}
 
-        public static Vector4 operator /(Vector4 right,float f)
-        {
-            return new Vector4(right.x / f, right.y / f, right.z / f);
-        }
-
-
-        public static Vector4 operator *(Vector4 right,Matrix4x4 left)
-        {
-            Vector4 res = new Vector4();
-            res.x = right.x * left[0, 0] + right.y * left[1, 0] + right.z * left[2, 0] + right.w * left[3, 0];
-            res.y = right.x * left[0, 1] + right.y * left[1, 1] + right.z * left[2, 1] + right.w * left[3, 1];
-            res.z = right.x * left[0, 2] + right.y * left[1, 2] + right.z * left[2, 2] + right.w * left[3, 2];
-            res.w = right.x * left[0, 3] + right.y * left[1, 3] + right.z * left[2, 3] + right.w * left[3, 3];
-            return res;
-        }
-
-        public Vector4 MultiplyMatrix(Matrix4x4 matrix)
-        {
-            Vector4 vec = new Vector4();
-            vec.x = x * matrix[0, 0] + y * matrix[0, 1] + z * matrix[0, 2] + w * matrix[0, 3];
-            vec.y = x * matrix[1, 0] + y * matrix[1, 1] + z * matrix[1, 2] + w * matrix[1, 3];
-            vec.z = x * matrix[2, 0] + y * matrix[2, 1] + z * matrix[2, 1] + w * matrix[2, 3];
-            vec.w = x * matrix[3, 0] + y * matrix[3, 1] + z * matrix[3, 2] + w * matrix[3, 3];
-            return vec;
-        }
-
-        public static float Dot(Vector4 right, Vector4 left)
-        {
-            return right.x * left.x + right.y * left.y + right.z * left.z;
-        }
-
-
-        public static Vector4 Cross(Vector4 right, Vector4 left)
-        {
-            Vector4 vec = new Vector4();
-            vec.x = right.y + left.z - right.z * left.y;
-            vec.y = right.z * left.x - right.x * left.z;
-            vec.z = right.x * left.y - right.y * left.x;
-            return vec;
-        }
-
-        public static void SwapVector4(ref Vector4 right,ref Vector4 left)
-        {
-            var tmp = right;
-            right = left;
-            left = tmp;
-        } 
-
-    }
+		/// <summary>
+		/// 交换两个Vector4
+		/// </summary>
+		/// <param name="p1"></param>
+		/// <param name="p2"></param>
+		public static void SwapVector4(ref Vector4 p1, ref Vector4 p2)
+		{
+			var tmp = p1;
+			p1 = p2;
+			p2 = tmp;
+		}
+	
+	}
 }
