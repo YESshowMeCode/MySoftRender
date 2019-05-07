@@ -22,6 +22,13 @@ namespace SoftRender.Render
             this.B = blue;
         }
 
+        public Color3()
+        {
+            R = 255;
+            G = 255;
+            B = 255;
+        }
+
         /// <summary>
         /// 颜色之间相乘
         /// </summary>

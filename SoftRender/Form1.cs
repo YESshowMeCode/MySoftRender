@@ -66,37 +66,37 @@ namespace SoftRender
 
             m_Cube = new Mesh("Cube");
             m_Cube.Vertices = new Vertex[24] {
-				new Vertex(new Vector4(-1, -1, -1, 1), new Vector4(-1, -1, -1, 1), new Vector2(0, 0), new Color3(0, 0, 0)),
-				new Vertex(new Vector4(-1, -1, -1, 1), new Vector4(-1, -1, -1, 1), new Vector2(1, 0), new Color3(0, 0, 0)),
-				new Vertex(new Vector4(-1, -1, -1, 1), new Vector4(-1, -1, -1, 1), new Vector2(0, 0), new Color3(0, 0, 0)),
+                new Vertex(new Vector4(-1, -1, -1, 1), new Vector4(-1, -1, -1, 1), new Vector2(0, 0), new Color3(0, 0, 0)),
+                new Vertex(new Vector4(-1, -1, -1, 1), new Vector4(-1, -1, -1, 1), new Vector2(1, 0), new Color3(0, 0, 0)),
+                new Vertex(new Vector4(-1, -1, -1, 1), new Vector4(-1, -1, -1, 1), new Vector2(0, 0), new Color3(0, 0, 0)),
 
-				new Vertex(new Vector4(1, -1, -1, 1), new Vector4(1, -1, -1, 1), new Vector2(1, 0), new Color3(255, 0, 0)),
-				new Vertex(new Vector4(1, -1, -1, 1), new Vector4(1, -1, -1, 1),  new Vector2(0, 0), new Color3(255, 0, 0)),
-				new Vertex(new Vector4(1, -1, -1, 1), new Vector4(1, -1, -1, 1), new Vector2(1, 0), new Color3(255, 0, 0)),
+                new Vertex(new Vector4(1, -1, -1, 1), new Vector4(1, -1, -1, 1), new Vector2(1, 0), new Color3(255, 0, 0)),
+                new Vertex(new Vector4(1, -1, -1, 1), new Vector4(1, -1, -1, 1),  new Vector2(0, 0), new Color3(255, 0, 0)),
+                new Vertex(new Vector4(1, -1, -1, 1), new Vector4(1, -1, -1, 1), new Vector2(1, 0), new Color3(255, 0, 0)),
 
-				new Vertex(new Vector4(1, 1, -1, 1), new Vector4(1, 1, -1, 1), new Vector2(1, 0), new Color3(255, 255, 0)),
-				new Vertex(new Vector4(1, 1, -1, 1), new Vector4(1, 1, -1, 1), new Vector2(0, 1), new Color3(255, 255, 0)),
-				new Vertex(new Vector4(1, 1, -1, 1), new Vector4(1, 1, -1, 1), new Vector2(1, 1), new Color3(255, 255, 0)),
+                new Vertex(new Vector4(1, 1, -1, 1), new Vector4(1, 1, -1, 1), new Vector2(1, 0), new Color3(255, 255, 0)),
+                new Vertex(new Vector4(1, 1, -1, 1), new Vector4(1, 1, -1, 1), new Vector2(0, 1), new Color3(255, 255, 0)),
+                new Vertex(new Vector4(1, 1, -1, 1), new Vector4(1, 1, -1, 1), new Vector2(1, 1), new Color3(255, 255, 0)),
 
-				new Vertex(new Vector4(-1, 1, -1, 1), new Vector4(-1, 1, -1, 1), new Vector2(0, 0), new Color3(0, 255, 0)),
-				new Vertex(new Vector4(-1, 1, -1, 1), new Vector4(-1, 1, -1, 1), new Vector2(1, 1), new Color3(0, 255, 0)),
-				new Vertex(new Vector4(-1, 1, -1, 1), new Vector4(-1, 1, -1, 1), new Vector2(0, 1), new Color3(0, 255, 0)),
+                new Vertex(new Vector4(-1, 1, -1, 1), new Vector4(-1, 1, -1, 1), new Vector2(0, 0), new Color3(0, 255, 0)),
+                new Vertex(new Vector4(-1, 1, -1, 1), new Vector4(-1, 1, -1, 1), new Vector2(1, 1), new Color3(0, 255, 0)),
+                new Vertex(new Vector4(-1, 1, -1, 1), new Vector4(-1, 1, -1, 1), new Vector2(0, 1), new Color3(0, 255, 0)),
 
-				new Vertex(new Vector4(-1, -1, 1, 1), new Vector4(-1, -1, 1, 1), new Vector2(0, 1), new Color3(0, 0, 255)),
-				new Vertex(new Vector4(-1, -1, 1, 1), new Vector4(-1, -1, 1, 1), new Vector2(0, 0), new Color3(0, 0, 255)),
-				new Vertex(new Vector4(-1, -1, 1, 1), new Vector4(-1, -1, 1, 1), new Vector2(0, 0), new Color3(0, 0, 255)),
+                new Vertex(new Vector4(-1, -1, 1, 1), new Vector4(-1, -1, 1, 1), new Vector2(0, 1), new Color3(0, 0, 255)),
+                new Vertex(new Vector4(-1, -1, 1, 1), new Vector4(-1, -1, 1, 1), new Vector2(0, 0), new Color3(0, 0, 255)),
+                new Vertex(new Vector4(-1, -1, 1, 1), new Vector4(-1, -1, 1, 1), new Vector2(0, 0), new Color3(0, 0, 255)),
 
-				new Vertex(new Vector4(1, -1, 1, 1), new Vector4(1, -1, 1, 1), new Vector2(1, 1), new Color3(255, 0, 255)),
-				new Vertex(new Vector4(1, -1, 1, 1), new Vector4(1, -1, 1, 1), new Vector2(1, 0), new Color3(255, 0, 255)),
-				new Vertex(new Vector4(1, -1, 1, 1), new Vector4(1, -1, 1, 1), new Vector2(1, 0), new Color3(255, 0, 255)),
+                new Vertex(new Vector4(1, -1, 1, 1), new Vector4(1, -1, 1, 1), new Vector2(1, 1), new Color3(255, 0, 255)),
+                new Vertex(new Vector4(1, -1, 1, 1), new Vector4(1, -1, 1, 1), new Vector2(1, 0), new Color3(255, 0, 255)),
+                new Vertex(new Vector4(1, -1, 1, 1), new Vector4(1, -1, 1, 1), new Vector2(1, 0), new Color3(255, 0, 255)),
 
-				new Vertex(new Vector4(1, 1, 1, 1), new Vector4(1, 1, 1, 1), new Vector2(1, 1), new Color3(255, 255, 255)),
-				new Vertex(new Vector4(1, 1, 1, 1), new Vector4(1, 1, 1, 1), new Vector2(1, 1), new Color3(255, 255, 255)),
-				new Vertex(new Vector4(1, 1, 1, 1), new Vector4(1, 1, 1, 1), new Vector2(1, 1), new Color3(255, 255, 255)),
+                new Vertex(new Vector4(1, 1, 1, 1), new Vector4(1, 1, 1, 1), new Vector2(1, 1), new Color3(255, 255, 255)),
+                new Vertex(new Vector4(1, 1, 1, 1), new Vector4(1, 1, 1, 1), new Vector2(1, 1), new Color3(255, 255, 255)),
+                new Vertex(new Vector4(1, 1, 1, 1), new Vector4(1, 1, 1, 1), new Vector2(1, 1), new Color3(255, 255, 255)),
 
-				new Vertex(new Vector4(-1, 1, 1, 1), new Vector4(-1, 1, 1, 1), new Vector2(0, 1), new Color3(0, 255, 255)),
-				new Vertex(new Vector4(-1, 1, 1, 1), new Vector4(-1, 1, 1, 1), new Vector2(0, 1), new Color3(0, 255, 255)),
-				new Vertex(new Vector4(-1, 1, 1, 1), new Vector4(-1, 1, 1, 1), new Vector2(0, 1), new Color3(0, 255, 255)),
+                new Vertex(new Vector4(-1, 1, 1, 1), new Vector4(-1, 1, 1, 1), new Vector2(0, 1), new Color3(0, 255, 255)),
+                new Vertex(new Vector4(-1, 1, 1, 1), new Vector4(-1, 1, 1, 1), new Vector2(0, 1), new Color3(0, 255, 255)),
+                new Vertex(new Vector4(-1, 1, 1, 1), new Vector4(-1, 1, 1, 1), new Vector2(0, 1), new Color3(0, 255, 255)),
 
 			};
 
@@ -122,9 +122,11 @@ namespace SoftRender
 			};
             RenderTexture[] textures = new RenderTexture[6];
             for (int i = 0; i < 6; i++)
-                textures[i] = new RenderTexture(@"env" + i.ToString() + ".bmp");
+            {
+                string path = "../../Texture/env2.bmp";
+                textures[i] = new RenderTexture(path);
+            }
             m_Cube.TextureMaps = textures;
-
             scene.AddMesh(m_Cube);
         }
 
@@ -233,8 +235,8 @@ namespace SoftRender
                 float y = e.Y;
                 float dx = m_MouseLeftPos.X - x;
                 float dy = m_MouseLeftPos.Y - y;
-                m_Cube.Transform = m_Cube.Transform * Matrix4x4.RotateY(dx / 5f);
-                m_Cube.Transform = m_Cube.Transform * Matrix4x4.RotateX(dy / 5f);
+                m_Cube.Transform = m_Cube.Transform * Matrix4x4.RotateY(dx / 10f);
+                m_Cube.Transform = m_Cube.Transform * Matrix4x4.RotateX(dy / 10f);
                 m_MouseLeftPos.X = x;
                 m_MouseLeftPos.Y = y;
                 this.Invalidate();
@@ -252,7 +254,7 @@ namespace SoftRender
             {
                 m_IsMouseLeftDown = true;
                 m_MouseLeftPos.X = e.X;
-                m_MouseLeftPos.X = e.Y;
+                m_MouseLeftPos.Y = e.Y;
             }
         }
 

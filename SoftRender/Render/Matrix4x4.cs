@@ -3,7 +3,7 @@
 namespace SoftRender.Render
 {
 	//矩阵类
-	struct Matrix4x4
+	class Matrix4x4
 	{
 		//用数组表示4x4矩阵的表示
 		public float[,] matrix;
@@ -20,7 +20,7 @@ namespace SoftRender.Render
 			set { matrix[i, j] = value; }
 		}
 	
-		public Matrix4x4(int x): this()
+		public Matrix4x4(int x)
 		{
 			matrix = new float[4, 4];
 			this.Identity();
@@ -41,17 +41,17 @@ namespace SoftRender.Render
 		/// <summary>
 		/// 矩阵相加
 		/// </summary>
-		/// <param name="a"></param>
-		/// <param name="b"></param>
+		/// <param name="right"></param>
+		/// <param name="left"></param>
 		/// <returns></returns>
-		public static Matrix4x4 operator +(Matrix4x4 a, Matrix4x4 b)
+		public static Matrix4x4 operator +(Matrix4x4 right, Matrix4x4 left)
 		{
 			Matrix4x4 temp = new Matrix4x4(1);
 			for (int i = 0; i < 4; i++)
 			{
 				for (int j = 0; j < 4; j++)
 				{
-					temp.matrix[i, j] = a.matrix[i, j] + b.matrix[i, j];
+					temp.matrix[i, j] = right.matrix[i, j] + left.matrix[i, j];
 				}
 			}
 			return temp;
@@ -60,17 +60,17 @@ namespace SoftRender.Render
 		/// <summary>
 		/// 矩阵相减
 		/// </summary>
-		/// <param name="a"></param>
-		/// <param name="b"></param>
+		/// <param name="right"></param>
+		/// <param name="left"></param>
 		/// <returns></returns>
-		public static Matrix4x4 operator -(Matrix4x4 a, Matrix4x4 b)
+		public static Matrix4x4 operator -(Matrix4x4 right, Matrix4x4 left)
 		{
 			Matrix4x4 temp = new Matrix4x4(1);
 			for (int i = 0; i < 4; i++)
 			{
 				for (int j = 0; j < 4; j++)
 				{
-					temp.matrix[i, j] = a.matrix[i, j] + b.matrix[i, j];
+					temp.matrix[i, j] = right.matrix[i, j] + left.matrix[i, j];
 				}
 			}
 			return temp;
@@ -79,20 +79,20 @@ namespace SoftRender.Render
 		/// <summary>
 		/// 矩阵相乘
 		/// </summary>
-		/// <param name="a"></param>
-		/// <param name="b"></param>
+		/// <param name="right"></param>
+		/// <param name="left"></param>
 		/// <returns></returns>
-		public static Matrix4x4 operator *(Matrix4x4 a, Matrix4x4 b)
+		public static Matrix4x4 operator *(Matrix4x4 right, Matrix4x4 left)
 		{
 			Matrix4x4 temp = new Matrix4x4(1);
 			for (int i = 0; i < 4; i++)
 			{
 				for (int j = 0; j < 4; j++)
 				{
-					temp.matrix[j, i] = (a.matrix[j, 0] * b.matrix[0, i]) +
-						(a.matrix[j, 1] * b.matrix[1, i]) +
-						(a.matrix[j, 2] * b.matrix[2, i]) +
-						(a.matrix[j, 3] * b.matrix[3, i]);
+					temp.matrix[j, i] = (right.matrix[j, 0] * left.matrix[0, i]) +
+						(right.matrix[j, 1] * left.matrix[1, i]) +
+						(right.matrix[j, 2] * left.matrix[2, i]) +
+						(right.matrix[j, 3] * left.matrix[3, i]);
 				}
 			}
 			return temp;
@@ -135,21 +135,16 @@ namespace SoftRender.Render
 
 		}
 
-		/// <summary>
-		/// 向量乘矩阵
-		/// </summary>
-		/// <param name="vector"></param>
-		/// <returns></returns>
-		public Vector4 LeftApply(Vector4 vector)
-		{
-			Vector4 V = new Vector4();
-			V.X = vector.X * this.matrix[0, 0] + vector.Y * this.matrix[1, 0] + vector.Z * this.matrix[2, 0] + vector.W * this.matrix[3, 0];
-			V.Y = vector.X * this.matrix[0, 1] + vector.Y * this.matrix[1, 1] + vector.Z * this.matrix[2, 1] + vector.W * this.matrix[3, 1];
-			V.Z = vector.X * this.matrix[0, 2] + vector.Y * this.matrix[1, 2] + vector.Z * this.matrix[2, 2] + vector.W * this.matrix[3, 2];
-			V.W = vector.X * this.matrix[0, 3] + vector.Y * this.matrix[1, 3] + vector.Z * this.matrix[2, 3] + vector.W * this.matrix[3, 3];
-			return V;
+        public static Vector4 operator *(Matrix4x4 matrix, Vector4 vector)
+        {
+            Vector4 V = new Vector4();
+            V.X = vector.X * matrix[0, 0] + vector.Y * matrix[1, 0] + vector.Z * matrix[2, 0] + vector.W * matrix[3, 0];
+            V.Y = vector.X * matrix[0, 1] + vector.Y * matrix[1, 1] + vector.Z * matrix[2, 1] + vector.W * matrix[3, 1];
+            V.Z = vector.X * matrix[0, 2] + vector.Y * matrix[1, 2] + vector.Z * matrix[2, 2] + vector.W * matrix[3, 2];
+            V.W = vector.X * matrix[0, 3] + vector.Y * matrix[1, 3] + vector.Z * matrix[2, 3] + vector.W * matrix[3, 3];
+            return V;
+        }
 
-		}
 
 		/// <summary>
 		/// 平移变换矩阵

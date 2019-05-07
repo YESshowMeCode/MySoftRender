@@ -4,17 +4,17 @@ namespace SoftRender.Render
 {
 	class Scene
 	{
-		private Light mLight;
-		private Camera mCamera;
-		private List<Mesh> mMeshs;
-		private bool mUseLight;
+		private Light m_Light;
+		private Camera m_Camera;
+		private List<Mesh> m_Meshs;
+		private bool m_UseLight;
 
 		/// <summary>
 		/// 光照
 		/// </summary>
 		public Light Lights
 		{
-			get { return mLight; }
+			get { return m_Light; }
 		}
 
 		/// <summary>
@@ -22,7 +22,7 @@ namespace SoftRender.Render
 		/// </summary>
 		public List<Mesh> Meshs
 		{
-			get { return mMeshs; }
+			get { return m_Meshs; }
 		}
 
 		/// <summary>
@@ -30,7 +30,7 @@ namespace SoftRender.Render
 		/// </summary>
 		public Camera Camera
 		{
-			get { return mCamera; }
+			get { return m_Camera; }
 		}
 
 		/// <summary>
@@ -38,13 +38,13 @@ namespace SoftRender.Render
 		/// </summary>
 		public bool IsUseLight
 		{
-			get { return mUseLight; }
-			set { mUseLight = value; }
+			get { return m_UseLight; }
+			set { m_UseLight = value; }
 		}
 
 		public Scene()
 		{
-			mUseLight = false;
+			m_UseLight = false;
 			InitCarmera();
 		}
 
@@ -53,10 +53,10 @@ namespace SoftRender.Render
 		/// </summary>
 		public void InitCarmera()
 		{
-			mCamera = new Camera();
-			mCamera.Position = new Vector4(0,0,-5, 1);
-			mCamera.Target = new Vector4(0, 0, 0, 1);
-			mCamera.Up = new Vector4(0, 1, 0, 1);
+			m_Camera = new Camera();
+			m_Camera.Position = new Vector4(0,0,-5, 1);
+			m_Camera.Target = new Vector4(0, 0, 0, 1);
+			m_Camera.Up = new Vector4(0, 1, 0, 1);
 		}
 
 		/// <summary>
@@ -64,7 +64,7 @@ namespace SoftRender.Render
 		/// </summary>
 		public void AddLight(Light light)
 		{
-			mLight = light;
+			m_Light = light;
 		}
 
 		/// <summary>
@@ -73,7 +73,7 @@ namespace SoftRender.Render
 		/// <param name="light"></param>
 		public void DelLight()
 		{
-			mLight = null;
+			m_Light = null;
 		}
 
 		/// <summary>
@@ -82,10 +82,10 @@ namespace SoftRender.Render
 		/// <param name="msh"></param>
 		public void AddMesh(Mesh msh)
 		{
-			if (mMeshs == null)
-				mMeshs = new List<Mesh>();
+			if (m_Meshs == null)
+				m_Meshs = new List<Mesh>();
 
-			mMeshs.Add(msh);
+			m_Meshs.Add(msh);
 		}
 
 		/// <summary>
@@ -94,7 +94,7 @@ namespace SoftRender.Render
 		public void Render(Device device, Matrix4x4 viewMat, Matrix4x4 proMat)
 		{
 			// 模型渲染
-			foreach(Mesh msh in mMeshs)
+			foreach(Mesh msh in m_Meshs)
 			{
 				msh.Render(this, device, viewMat, proMat);
 			}

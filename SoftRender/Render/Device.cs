@@ -70,7 +70,7 @@ namespace SoftRender.Render
 			this.mHeight = bmp.Height;
 			this.mWidth = bmp.Width;
 			this.mDepthBuffer = new float[bmp.Width * bmp.Height];
-			mRenderMode = RenderMode.WIREFRAME;
+			mRenderMode = RenderMode.TEXTURED;
 		}
 
 		/// <summary>
@@ -134,7 +134,7 @@ namespace SoftRender.Render
 		/// <returns></returns>
 		public Vector4 Projection(Vector4 vector, Matrix4x4 mvp)
 		{
-			Vector4 point = mvp.LeftApply(vector);
+            Vector4 point = mvp * vector;
 			Vector4 viewpoint = ProjectionDev(point);
 			return viewpoint;
 		}
@@ -147,7 +147,7 @@ namespace SoftRender.Render
 		/// <returns></returns>
 		public Vector4 ToHomogeneous(Vector4 x, Matrix4x4 M)
 		{
-			Vector4 val = M.LeftApply(x);
+			Vector4 val = M*x;
 			float rh = 1.0f / val.W;
 			val.X = val.X * rh;
 			val.Y = val.Y * rh;

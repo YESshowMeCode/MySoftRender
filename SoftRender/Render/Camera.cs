@@ -2,20 +2,19 @@
 
 namespace SoftRender.Render
 {
-	//相机类
 	class Camera
 	{
-		private Vector4 mPosition;
-		private Vector4 mTarget;
-		private Vector4 mUp;
+		private Vector4 m_Position;
+		private Vector4 m_Target;
+		private Vector4 m_Up;
 
 		/// <summary>
 		/// 相机位置
 		/// </summary>
 		public Vector4 Position
 		{
-			get { return mPosition; }
-			set { mPosition = value; }
+			get { return m_Position; }
+			set { m_Position = value; }
 		}
 
 		/// <summary>
@@ -23,8 +22,8 @@ namespace SoftRender.Render
 		/// </summary>
 		public Vector4 Target
 		{
-			get { return mTarget; }
-			set { mTarget = value; }
+			get { return m_Target; }
+			set { m_Target = value; }
 		}
 
 		/// <summary>
@@ -32,8 +31,8 @@ namespace SoftRender.Render
 		/// </summary>
 		public Vector4 Up
 		{
-			get { return mUp; }
-			set { mUp = value; }
+			get { return m_Up; }
+			set { m_Up = value; }
 		}
 
 		/// <summary>
@@ -46,9 +45,9 @@ namespace SoftRender.Render
 			Vector4 xaxis, yaxis, zaxis;
 
 			//法向量 z
-			zaxis = mTarget - mPosition;
+			zaxis = m_Target - m_Position;
 			zaxis.Normalize();
-			xaxis = Vector4.Cross(mUp, zaxis);
+			xaxis = Vector4.Cross(m_Up, zaxis);
 			xaxis.Normalize();
 			yaxis = Vector4.Cross(zaxis, xaxis);
 			yaxis.Normalize();
@@ -56,17 +55,17 @@ namespace SoftRender.Render
 			view.matrix[0, 0] = xaxis.X;
 			view.matrix[1, 0] = xaxis.Y;
 			view.matrix[2, 0] = xaxis.Z;
-			view.matrix[3, 0] = -Vector4.Dot(xaxis, mPosition);
+			view.matrix[3, 0] = -Vector4.Dot(xaxis, m_Position);
 
 			view.matrix[0, 1] = yaxis.X;
 			view.matrix[1, 1] = yaxis.Y;
 			view.matrix[2, 1] = yaxis.Z;
-			view.matrix[3, 1] = -Vector4.Dot(yaxis, mPosition);
+			view.matrix[3, 1] = -Vector4.Dot(yaxis, m_Position);
 
 			view.matrix[0, 2] = zaxis.X;
 			view.matrix[1, 2] = zaxis.Y;
 			view.matrix[2, 2] = zaxis.Z;
-			view.matrix[3, 2] = -Vector4.Dot(zaxis, mPosition);
+			view.matrix[3, 2] = -Vector4.Dot(zaxis, m_Position);
 
 			view.matrix[0, 3] = view.matrix[1, 3] = view.matrix[2, 3] = 0.0f;
 			view.matrix[3, 3] = 1.0f;
@@ -103,7 +102,7 @@ namespace SoftRender.Render
 		/// <param name="y"></param>
 		public void Rotate(Vector4 position, float x, float y)
 		{
-			mPosition = (Matrix4x4.RotateX(x) * Matrix4x4.RotateY(y)).LeftApply(position);
+            m_Position = (Matrix4x4.RotateX(x) * Matrix4x4.RotateY(y)) * position;
 		}
 
 		/// <summary>
@@ -112,7 +111,7 @@ namespace SoftRender.Render
 		/// <param name="pos"></param>
 		public void UpdatePosition(Vector4 pos)
 		{
-			mPosition = pos;
+			m_Position = pos;
 		}
 
 		/// <summary>
@@ -121,16 +120,16 @@ namespace SoftRender.Render
 		/// <param name="distance">移动的距离</param>
 		public void MoveForward(float distance)
 		{
-			Vector4 dir = (mTarget - mPosition);
-			float w = mPosition.W;
+			Vector4 dir = (m_Target - m_Position);
+			float w = m_Position.W;
 			if (distance > 0 && dir.Length < 1.5f)
 				return;
 
 			if (distance < 0 && dir.Length > 30)
 				return;
 
-			mPosition = mPosition + (dir.Normalize() * distance);
-			mPosition.W = w;
+			m_Position = m_Position + (dir.Normalize() * distance);
+			m_Position.W = w;
 		}
 
 		/// <summary>
@@ -139,7 +138,7 @@ namespace SoftRender.Render
 		/// <param name="r"></param>
 		public void MoveTheta(float r)
 		{
-			mPosition = mPosition * Matrix4x4.RotateX(r);
+			m_Position = m_Position * Matrix4x4.RotateX(r);
 		}
 
 		/// <summary>
@@ -148,7 +147,7 @@ namespace SoftRender.Render
 		/// <param name="r"></param>
 		public void MovePhi(float r)
 		{
-			mPosition = mPosition * Matrix4x4.RotateY(r);
+			m_Position = m_Position * Matrix4x4.RotateY(r);
 		}
 	}
 }

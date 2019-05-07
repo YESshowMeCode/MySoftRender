@@ -5,22 +5,22 @@ namespace SoftRender.Render
 {
 	class Mesh
 	{
-		private string mName;
-		private Vertex[] mVertices;
-		private Face[] mFaces;
+		private string m_Name;
+		private Vertex[] m_Vertices;
+		private Face[] m_Faces;
 
-		private Material mMaterial;
-		private Matrix4x4 mTransform;
-		private RenderTexture[] mTextureMaps;
-		private Clip mHodgmanclip;
-		private ScanLine mScanline;
+		private Material m_Material;
+		private Matrix4x4 m_Transform;
+		private RenderTexture[] m_TextureMaps;
+		private Clip m_Hodgmanclip;
+		private ScanLine m_Scanline;
 
 		/// <summary>
 		/// 模型名称
 		/// </summary>
 		public string Name
 		{
-			get { return mName; }
+			get { return m_Name; }
 		}
 
 		/// <summary>
@@ -28,8 +28,8 @@ namespace SoftRender.Render
 		/// </summary>
 		public Vertex[] Vertices
 		{
-			get { return mVertices; }
-			set { mVertices = value; }
+			get { return m_Vertices; }
+			set { m_Vertices = value; }
 		}
 
 		/// <summary>
@@ -37,8 +37,8 @@ namespace SoftRender.Render
 		/// </summary>
 		public Face[] Faces
 		{
-			get { return mFaces; }
-			set { mFaces = value; }
+			get { return m_Faces; }
+			set { m_Faces = value; }
 		}
 
 		/// <summary>
@@ -46,8 +46,8 @@ namespace SoftRender.Render
 		/// </summary>
 		public Material Material
 		{
-			get { return mMaterial; }
-			set { mMaterial = value; }
+			get { return m_Material; }
+			set { m_Material = value; }
 		}
 
 		/// <summary>
@@ -55,8 +55,8 @@ namespace SoftRender.Render
 		/// </summary>
 		public Matrix4x4 Transform
 		{
-			get { return mTransform; }
-			set { mTransform = value; }
+			get { return m_Transform; }
+			set { m_Transform = value; }
 		}
 
 		/// <summary>
@@ -64,8 +64,8 @@ namespace SoftRender.Render
 		/// </summary>
 		public RenderTexture[] TextureMaps
 		{
-			get { return mTextureMaps; }
-			set { mTextureMaps = value; }
+			get { return m_TextureMaps; }
+			set { m_TextureMaps = value; }
 		}
 		/// <summary>
 		/// 顶点数量和名字构造
@@ -74,9 +74,9 @@ namespace SoftRender.Render
 		/// <param name="verticesCount"></param>
 		public Mesh(string name)
 		{
-			mName = name;
-			mMaterial = new Material(0.9f, new Color3(200, 200, 200));
-			mTransform = new Matrix4x4(1);
+			m_Name = name;
+			m_Material = new Material(0.9f, new Color3(200, 200, 200));
+			m_Transform = new Matrix4x4(1);
 		}
 
 		/// <summary>
@@ -101,20 +101,20 @@ namespace SoftRender.Render
 		/// <returns></returns>
 		public RenderTexture GetTextureByFace(FaceTypes types)
 		{
-			if (mTextureMaps.Length == 0)
+			if (m_TextureMaps.Length == 0)
 				return null;
 
 			if (types == FaceTypes.NONE)
 			{
-				return mTextureMaps[0];
+				return m_TextureMaps[0];
 			}
 			else
 			{
 				int index = (int)types;
-				if (mTextureMaps.Length == 6 && index >= 0 && index < 6)
-					return mTextureMaps[index];
+				if (m_TextureMaps.Length == 6 && index >= 0 && index < 6)
+					return m_TextureMaps[index];
 				else
-					return mTextureMaps[0];
+					return m_TextureMaps[0];
 			}
 		}
 	
@@ -128,12 +128,12 @@ namespace SoftRender.Render
 		public Color3 GetLightColor(Vector4 position, Vector4 normal, Light light)
 		{
 			// 环境光
-			Color3 ambient = light.Color * mMaterial.AmbientStregth;
+			Color3 ambient = light.Color * m_Material.AmbientStregth;
 			// 漫反射
-			Vector4 nor = normal * mTransform;
+			Vector4 nor = normal * m_Transform;
 			Vector4 lightdir = (light.Position - position).Normalize();
 			float diff = Math.Max(Vector4.Dot(normal.Normalize(), lightdir), 0);
-			Color3 diffuse = mMaterial.Diffuse * diff;
+			Color3 diffuse = m_Material.Diffuse * diff;
 			return ambient + diffuse;
 		}
 
@@ -145,12 +145,12 @@ namespace SoftRender.Render
 		/// <param name="viewMatrix"></param>
 		public void Render(Scene scene, Device device, Matrix4x4 viewMat, Matrix4x4 proMat)
 		{
-			Matrix4x4 viewMatrix = mTransform * viewMat * proMat;
-			foreach (var faces in mFaces)
+			Matrix4x4 viewMatrix = m_Transform * viewMat * proMat;
+			foreach (var faces in m_Faces)
 			{
-				Vertex verA = mVertices[faces.A];
-				Vertex verB = mVertices[faces.B];
-				Vertex verC = mVertices[faces.C];
+				Vertex verA = m_Vertices[faces.A];
+				Vertex verB = m_Vertices[faces.B];
+				Vertex verC = m_Vertices[faces.C];
 
 				Vertex verA2 = new Vertex();
 				Vertex verB2 = new Vertex();
@@ -179,17 +179,17 @@ namespace SoftRender.Render
 
 				verA2.ClipPosition = verA.ClipPosition;
 				verA2.ScreenPosition = verA.ScreenPosition;
-				verA2.Position = mTransform.LeftApply(verA.Position);
+                verA2.Position = m_Transform * verA.Position;
 				verA2.UV = verA.UV;
 
 				verB2.ClipPosition = verB.ClipPosition;
 				verB2.ScreenPosition = verB.ScreenPosition;
-				verB2.Position = mTransform.LeftApply(verB.Position);
+                verB2.Position = m_Transform * verB.Position;
 				verB2.UV = verB.UV;
 
 				verC2.ClipPosition = verC.ClipPosition;
 				verC2.ScreenPosition = verC.ScreenPosition;
-				verC2.Position = mTransform.LeftApply(verC.Position);
+                verC2.Position = m_Transform * verC.Position;
 				verC2.UV = verC.UV;
 
 				verA2.Normal = verA.Normal;
@@ -208,9 +208,9 @@ namespace SoftRender.Render
 				for (FaceTypes face = FaceTypes.LEFT; face <= FaceTypes.FAR; face++)
 				{
 					if (list.Count == 0) break;
-					mHodgmanclip = new Clip(device);
-					mHodgmanclip.HodgmanPolygonClip(face, Device.sClipmin, Device.sClipmax, list.ToArray());
-					list = mHodgmanclip.OutputList;
+					m_Hodgmanclip = new Clip(device);
+					m_Hodgmanclip.HodgmanPolygonClip(face, Device.sClipmin, Device.sClipmax, list.ToArray());
+					list = m_Hodgmanclip.OutputList;
 				}
 
 				List<Triangle> tringleList = GetDrawTriangleList(list);
@@ -228,12 +228,12 @@ namespace SoftRender.Render
 				}
 				else
 				{
-					if (mScanline == null)
-						mScanline = new ScanLine(device);
+					if (m_Scanline == null)
+						m_Scanline = new ScanLine(device);
 					for (int i = 0; i < tringleList.Count; i++)
 					{
 						if (!device.IsInBack(tringleList[i]))
-							mScanline.ProcessScanLine(tringleList[i], scene, triang1, faces.FaceType, this);
+							m_Scanline.ProcessScanLine(tringleList[i], scene, triang1, faces.FaceType, this);
 					}
 				}
 			}
