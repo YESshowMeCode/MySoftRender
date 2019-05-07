@@ -93,7 +93,14 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Texture\env0.bmp" />
+    <Content Include="Texture\env1.bmp" />
+    <Content Include="Texture\env2.bmp" />
+    <Content Include="Texture\env3.bmp" />
+    <Content Include="Texture\env4.bmp" />
+    <Content Include="Texture\env5.bmp" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

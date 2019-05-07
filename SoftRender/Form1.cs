@@ -122,7 +122,7 @@ namespace SoftRender
 			};
             RenderTexture[] textures = new RenderTexture[6];
             for (int i = 0; i < 6; i++)
-                textures[i] = new RenderTexture("Texture/env" + i.ToString() + ".bmp");
+                textures[i] = new RenderTexture(@"env" + i.ToString() + ".bmp");
             m_Cube.TextureMaps = textures;
 
             scene.AddMesh(m_Cube);
@@ -232,11 +232,11 @@ namespace SoftRender
                 float x = e.X;
                 float y = e.Y;
                 float dx = m_MouseLeftPos.X - x;
-                float dy = m_MouseLeftPos.X - y;
+                float dy = m_MouseLeftPos.Y - y;
                 m_Cube.Transform = m_Cube.Transform * Matrix4x4.RotateY(dx / 5f);
                 m_Cube.Transform = m_Cube.Transform * Matrix4x4.RotateX(dy / 5f);
                 m_MouseLeftPos.X = x;
-                m_MouseLeftPos.X = y;
+                m_MouseLeftPos.Y = y;
                 this.Invalidate();
             }
         }

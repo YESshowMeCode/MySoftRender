@@ -3,7 +3,7 @@
 namespace SoftRender.Render
 {
     // rgb 0-255
-    public struct Color3
+    public class Color3
     {
         public byte R;
         public byte G;
@@ -16,7 +16,6 @@ namespace SoftRender.Render
         /// <param name="green"></param>
         /// <param name="blue"></param>
         public Color3(byte red, byte green, byte blue)
-            : this()
         {
             this.R = red;
             this.G = green;
