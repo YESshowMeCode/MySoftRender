@@ -75,7 +75,7 @@ namespace SoftRender.Render
 		public Mesh(string name)
 		{
 			m_Name = name;
-			m_Material = new Material(0.9f, new Color3(200, 200, 200));
+			m_Material = new Material(0.9f, new Color3(255, 255, 255));
 			m_Transform = new Matrix4x4(1);
 		}
 
@@ -138,14 +138,16 @@ namespace SoftRender.Render
 		}
 
 		/// <summary>
-		/// 设备渲染事件
+		/// 网格渲染
 		/// </summary>
 		/// <param name="scene"></param>
-		/// <param name="bmp"></param>
-		/// <param name="viewMatrix"></param>
+		/// <param name="device"></param>
+		/// <param name="viewMat"></param>
+		/// <param name="proMat"></param>
 		public void Render(Scene scene, Device device, Matrix4x4 viewMat, Matrix4x4 proMat)
 		{
-			Matrix4x4 viewMatrix = m_Transform * viewMat * proMat;
+            //MVP矩阵，因为输入的点在世界坐标系不需要世界矩阵
+			Matrix4x4 MVP = m_Transform * viewMat * proMat;
 			foreach (var faces in m_Faces)
 			{
 				Vertex verA = m_Vertices[faces.A];
@@ -164,9 +166,9 @@ namespace SoftRender.Render
 				}
 
 				// 转换到齐次坐标
-				verA.ClipPosition = device.ToHomogeneous(verA.Position, viewMatrix);
-				verB.ClipPosition = device.ToHomogeneous(verB.Position, viewMatrix);
-				verC.ClipPosition = device.ToHomogeneous(verC.Position, viewMatrix);
+				verA.ClipPosition = device.ToHomogeneousDNC(verA.Position, MVP);
+				verB.ClipPosition = device.ToHomogeneousDNC(verB.Position, MVP);
+				verC.ClipPosition = device.ToHomogeneousDNC(verC.Position, MVP);
 
 				verA2.Color = verA.Color;
 				verB2.Color = verB.Color;

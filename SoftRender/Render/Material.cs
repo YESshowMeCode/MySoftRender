@@ -3,16 +3,16 @@ namespace SoftRender.Render
 {
 	class Material
 	{
-		private float mAmbientStregth;
-		private Color3 mDiffuse;
+		private float m_AmbientStregth;
+		private Color3 m_Diffuse;
 
 		/// <summary>
 		/// 环境光系数
 		/// </summary>
 		public float AmbientStregth
 		{
-			get { return mAmbientStregth; }
-			set { mAmbientStregth = value; }
+			get { return m_AmbientStregth; }
+			set { m_AmbientStregth = value; }
 		}
 
 		/// <summary>
@@ -20,8 +20,8 @@ namespace SoftRender.Render
 		/// </summary>
 		public Color3 Diffuse
 		{
-			get { return mDiffuse; }
-			set { mDiffuse = value; }
+			get { return m_Diffuse; }
+			set { m_Diffuse = value; }
 		}
 
 		/// <summary>
@@ -31,8 +31,8 @@ namespace SoftRender.Render
 		/// <param name="color"></param>
 		public Material(float ambient, Color3 color)
 		{
-			mAmbientStregth = ambient;
-			mDiffuse = color;
+			m_AmbientStregth = ambient;
+			m_Diffuse = color;
 		}
 	}
 }

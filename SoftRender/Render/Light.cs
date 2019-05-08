@@ -3,16 +3,16 @@ namespace SoftRender.Render
 {
 	class Light
 	{
-		private Vector4 mPosition;
-		private Color3 mColor;
+		private Vector4 m_Position;
+		private Color3 m_Color;
 
 		/// <summary>
 		/// 位置
 		/// </summary>
 		public Vector4 Position
 		{
-			get { return mPosition; }
-			set { mPosition = value; }
+			get { return m_Position; }
+			set { m_Position = value; }
 		}
 
 		/// <summary>
@@ -20,14 +20,14 @@ namespace SoftRender.Render
 		/// </summary>
 		public Color3 Color
 		{
-			get { return mColor; }
-			set { mColor = value;}
+			get { return m_Color; }
+			set { m_Color = value;}
 		}
 
 		public Light(Vector4 pos, Color3 color)
 		{
-			mPosition = pos;
-			mColor = color;
+			m_Position = pos;
+			m_Color = color;
 		}
 	}
 }

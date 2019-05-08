@@ -4,6 +4,7 @@ namespace SoftRender.Render
 {
 	class Camera
 	{
+        
 		private Vector4 m_Position;
 		private Vector4 m_Target;
 		private Vector4 m_Up;
@@ -18,7 +19,7 @@ namespace SoftRender.Render
 		}
 
 		/// <summary>
-		/// 目标
+		/// 目标位置
 		/// </summary>
 		public Vector4 Target
 		{
@@ -27,7 +28,7 @@ namespace SoftRender.Render
 		}
 
 		/// <summary>
-		/// 上方
+		/// 向上方向
 		/// </summary>
 		public Vector4 Up
 		{
@@ -36,7 +37,7 @@ namespace SoftRender.Render
 		}
 
 		/// <summary>
-		/// 观察矩阵
+		/// 求观察矩阵
 		/// </summary>
 		/// <returns></returns>
 		public Matrix4x4 GetLookAt()
@@ -44,14 +45,18 @@ namespace SoftRender.Render
 			Matrix4x4 view = new Matrix4x4(1);
 			Vector4 xaxis, yaxis, zaxis;
 
-			//法向量 z
+			//法向量 z轴
 			zaxis = m_Target - m_Position;
 			zaxis.Normalize();
+            //z轴与向上方向叉乘得到x轴
 			xaxis = Vector4.Cross(m_Up, zaxis);
 			xaxis.Normalize();
+            //z轴与x轴叉乘得到y轴
 			yaxis = Vector4.Cross(zaxis, xaxis);
 			yaxis.Normalize();
 
+            //得到观察矩阵 假设相机坐标m_Position变成坐标原点
+            //需要经过平移和旋转
 			view.matrix[0, 0] = xaxis.X;
 			view.matrix[1, 0] = xaxis.Y;
 			view.matrix[2, 0] = xaxis.Z;
@@ -77,19 +82,19 @@ namespace SoftRender.Render
 		/// 投影矩阵
 		/// </summary>
 		/// <param name="fov">y方向的视角</param>
-		/// <param name="aspect">纵横比</param>
-		/// <param name="zn">近裁剪 平面到原点的距离</param>
-		/// <param name="zf">远裁剪 平面到原点的距离</param>
+		/// <param name="aspect">裁剪面纵横比</param>
+		/// <param name="z_Near">近裁剪 平面到原点的距离</param>
+		/// <param name="z_Far">远裁剪 平面到原点的距离</param>
 		/// <returns></returns>
-		public Matrix4x4 GetProject(float fov, float aspect, float zn, float zf)
+		public Matrix4x4 GetProject(float fov, float aspect, float z_Near, float z_Far)
 		{
 			Matrix4x4 project = new Matrix4x4(1);
 			project.SetZero();
 			project.matrix[0, 0] = 1 / ((float)Math.Tan(fov * 0.5f) * aspect);
 			project.matrix[1, 1] = 1 / (float)Math.Tan(fov * 0.5f);
-			project.matrix[2, 2] = (zf + zn) / (zf - zn);
+			project.matrix[2, 2] = (z_Far + z_Near) / (z_Far - z_Near);
 			project.matrix[2, 3] = 1.0f;
-			project.matrix[3, 2] = 2 * (zn * zf) / (zn - zf);
+			project.matrix[3, 2] = 2 * (z_Near * z_Far) / (z_Near - z_Far);
 
 			return project;
 		}

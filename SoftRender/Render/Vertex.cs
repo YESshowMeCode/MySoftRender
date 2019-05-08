@@ -3,22 +3,22 @@ namespace SoftRender.Render
 {
 	class Vertex
 	{
-		private Vector4 mPosition;
-		private Vector4 mNormal;
-		private Vector2 mUV;
-		private Color3 mColor;
-		private Color3 mLightColor;
+		private Vector4 m_Position;
+		private Vector4 m_Normal;
+		private Vector2 m_UV;
+		private Color3 m_Color;
+		private Color3 m_LightColor;
 		//进行扫描线算法的时候用到的 
-		private Vector4 mScreenPosition;
-		private Vector4 mClipPosition;
+		private Vector4 m_ScreenPosition;
+		private Vector4 m_ClipPosition;
 
 		/// <summary>
 		/// 顶点位置
 		/// </summary>
 		public Vector4 Position
 		{
-			get { return mPosition; }
-			set { mPosition = value; }
+			get { return m_Position; }
+			set { m_Position = value; }
 		}
 
 		/// <summary>
@@ -26,8 +26,8 @@ namespace SoftRender.Render
 		/// </summary>
 		public Vector4 Normal
 		{
-			get { return mNormal; }
-			set { mNormal = value; }
+			get { return m_Normal; }
+			set { m_Normal = value; }
 		}
 
 		/// <summary>
@@ -35,8 +35,8 @@ namespace SoftRender.Render
 		/// </summary>
 		public Vector2 UV
 		{
-			get { return mUV; }
-			set { mUV = value; }
+			get { return m_UV; }
+			set { m_UV = value; }
 		}
 
 		/// <summary>
@@ -44,8 +44,8 @@ namespace SoftRender.Render
 		/// </summary>
 		public Color3 Color
 		{
-			get { return mColor; }
-			set { mColor = value; }
+			get { return m_Color; }
+			set { m_Color = value; }
 		}
 	
 		/// <summary>
@@ -53,8 +53,8 @@ namespace SoftRender.Render
 		/// </summary>
 		public Color3 LightColor
 		{
-			get { return mLightColor; }
-			set { mLightColor = value; }
+			get { return m_LightColor; }
+			set { m_LightColor = value; }
 		}
 
 		/// <summary>
@@ -62,8 +62,8 @@ namespace SoftRender.Render
 		/// </summary>
 		public Vector4 ScreenPosition
 		{
-			get { return mScreenPosition; }
-			set { mScreenPosition = value; }
+			get { return m_ScreenPosition; }
+			set { m_ScreenPosition = value; }
 		}
 
 		/// <summary>
@@ -71,22 +71,22 @@ namespace SoftRender.Render
 		/// </summary>
 		public Vector4 ClipPosition
 		{
-			get { return mClipPosition; }
-			set { mClipPosition = value; }
+			get { return m_ClipPosition; }
+			set { m_ClipPosition = value; }
 		}
 
 		public Vertex()
 		{
-			this.mLightColor = new Color3(255, 255, 255);
+			this.m_LightColor = new Color3(255, 255, 255);
 		}
 
 		public Vertex(Vector4 position, Vector4 normal, Vector2 uv, Color3 c)
 		{
-			this.mPosition = position;
-			this.mNormal = normal;
-			this.mUV = uv;
-			this.mColor = c;
-			this.mLightColor = new Color3(255, 255, 255);
+			this.m_Position = position;
+			this.m_Normal = normal;
+			this.m_UV = uv;
+			this.m_Color = c;
+			this.m_LightColor = new Color3(255, 255, 255);
 		}
 
 		/// <summary>

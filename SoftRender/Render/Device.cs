@@ -31,19 +31,19 @@ namespace SoftRender.Render
 		public static Vector4 sClipmax = new Vector4(1, 1, 1, 1);
 
 		// 渲染缓冲相关
-		private Bitmap mBmp;
-		private BitmapData mBmData;
-		private int mHeight;
-		private int mWidth;
-		private readonly float[] mDepthBuffer;
-		private RenderMode mRenderMode;
+		private Bitmap m_Bmp;
+		private BitmapData m_BmData;
+		private int m_Height;
+		private int m_Width;
+		private readonly float[] m_DepthBuffer;
+		private RenderMode m_RenderMode;
 		
 		/// <summary>
 		/// 高
 		/// </summary>
 		public int Height
 		{
-			get { return this.mHeight; }
+			get { return this.m_Height; }
 		}
 
 		/// <summary>
@@ -51,7 +51,7 @@ namespace SoftRender.Render
 		/// </summary>
 		public int Width
 		{
-			get { return this.mWidth; }
+			get { return this.m_Width; }
 		}
 
 		/// <summary>
@@ -59,18 +59,18 @@ namespace SoftRender.Render
 		/// </summary>
 		public RenderMode RenderMode
 		{
-			get { return mRenderMode; }
-			set { mRenderMode = value; }
+			get { return m_RenderMode; }
+			set { m_RenderMode = value; }
 		}
 
 
 		public Device(Bitmap bmp)
 		{
-			this.mBmp = bmp;
-			this.mHeight = bmp.Height;
-			this.mWidth = bmp.Width;
-			this.mDepthBuffer = new float[bmp.Width * bmp.Height];
-			mRenderMode = RenderMode.TEXTURED;
+			this.m_Bmp = bmp;
+			this.m_Height = bmp.Height;
+			this.m_Width = bmp.Width;
+			this.m_DepthBuffer = new float[bmp.Width * bmp.Height];
+			m_RenderMode = RenderMode.TEXTURED;
 		}
 
 		/// <summary>
@@ -79,9 +79,9 @@ namespace SoftRender.Render
 		/// <param name="data"></param>
 		public void Clear(BitmapData data)
 		{
-			for (int index = 0; index < mDepthBuffer.Length; index++)
+			for (int index = 0; index < m_DepthBuffer.Length; index++)
 			{
-				mDepthBuffer[index] = float.MaxValue;
+				m_DepthBuffer[index] = float.MaxValue;
 			}
             unsafe
             {
@@ -111,14 +111,14 @@ namespace SoftRender.Render
 		public void Putpixel(int x, int y, float z, Color3 color)
 		{
 			int index = (x + y * Width);
-			if (mDepthBuffer[index] < z)
+			if (m_DepthBuffer[index] < z)
 				return;
 
-			mDepthBuffer[index] = z;
+			m_DepthBuffer[index] = z;
             unsafe
             {
-                byte* ptr = (byte*)(this.mBmData.Scan0);
-                byte* row = ptr + (y * this.mBmData.Stride);
+                byte* ptr = (byte*)(this.m_BmData.Scan0);
+                byte* row = ptr + (y * this.m_BmData.Stride);
                 row[x * 3] = color.B;
                 row[x * 3 + 1] = color.G;
                 row[x * 3 + 2] = color.R;
@@ -140,19 +140,21 @@ namespace SoftRender.Render
 		}
 
 		/// <summary>
-		/// 变换到齐次坐标
+		/// 变换到齐次坐标系DNC
+        ///
 		/// </summary>
-		/// <param name="x"></param>
-		/// <param name="M"></param>
+		/// <param name="vector"></param>
+		/// <param name="MVP"></param>
 		/// <returns></returns>
-		public Vector4 ToHomogeneous(Vector4 x, Matrix4x4 M)
+		public Vector4 ToHomogeneousDNC(Vector4 vector, Matrix4x4 MVP)
 		{
-			Vector4 val = M*x;
-			float rh = 1.0f / val.W;
-			val.X = val.X * rh;
-			val.Y = val.Y * rh;
-			val.Z = val.Z * rh;
-			return val;
+            //转换到投影坐标系
+            Vector4 vec = MVP * vector;
+            //转到齐次坐标系
+            vec.X = vec.X / vec.W;
+            vec.Y = vec.Y / vec.W;
+            vec.Z = vec.Z / vec.W;
+			return vec;
 		}
 
 		/// <summary>
@@ -239,7 +241,7 @@ namespace SoftRender.Render
 		/// <param name="viewMatrix"></param>
 		public void Render(Scene scene, BitmapData bmp, Matrix4x4 viewMat, Matrix4x4 proMat)
 		{
-			this.mBmData = bmp;
+			this.m_BmData = bmp;
 			if (scene != null)
 				scene.Render(this, viewMat, proMat);
 		}
@@ -260,16 +262,20 @@ namespace SoftRender.Render
 		}
 
 		/// <summary>
-		/// 转换为屏幕坐标显示
+		/// 齐次坐标系转换为屏幕坐标显示
+        /// 屏幕空间左下角的像素坐标都是（0,0），因此右上角的
+        /// 坐标为（Width，Height）Y方向，与我们的NDC是反过来
+        /// 的，所以映射到（0,1）
+        /// 区间后，还需要反向一下
 		/// </summary>
-		/// <param name="x"></param>
+		/// <param name="vector"></param>
 		/// <returns></returns>
-		public Vector4 ViewPort(Vector4 x)
+		public Vector4 ViewPort(Vector4 vector)
 		{
 			Vector4 val = new Vector4();
-			val.X = (1.0f + x.X) * Width * 0.5f;
-			val.Y = (1.0f - x.Y) * Height * 0.5f;
-			val.Z = x.Z;
+			val.X = (1.0f + vector.X) * Width * 0.5f;
+			val.Y = (1.0f - vector.Y) * Height * 0.5f;
+			val.Z = vector.Z;
 			val.W = 1.0f;
 			return val;
 		}

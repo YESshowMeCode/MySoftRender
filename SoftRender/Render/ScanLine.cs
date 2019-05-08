@@ -3,13 +3,13 @@ namespace SoftRender.Render
 {
 	class ScanLine
 	{
-		private Color3 mUserColor;
-		private Device mDevice;
+		private Color3 m_UserColor;
+		private Device m_Device;
 
 		public ScanLine(Device device)
 		{
-			this.mDevice = device;
-			mUserColor = new Color3(255, 255, 255);
+			this.m_Device = device;
+			m_UserColor = new Color3(255, 255, 255);
 		}
 
 		/// <summary>
@@ -161,26 +161,26 @@ namespace SoftRender.Render
 				else
 					c3 = MathUntily.Lerp(c1, c2, r3) * MathUntily.Lerp(lc1, lc2, r3);
 
-				mUserColor = c3;
-				if (mDevice.RenderMode == RenderMode.TEXTURED || mDevice.RenderMode == RenderMode.CUBETEXTURED)
+				m_UserColor = c3;
+				if (m_Device.RenderMode == RenderMode.TEXTURED || m_Device.RenderMode == RenderMode.CUBETEXTURED)
 				{
 					ort.CallLerp(new Vector4(x, y, 0, 0));
 					Vector2 uv = ort.GetUV();
 					FaceTypes typ = types;
-					if (mDevice.RenderMode == RenderMode.TEXTURED)
+					if (m_Device.RenderMode == RenderMode.TEXTURED)
 						typ = FaceTypes.NONE;
 
 					RenderTexture texture = msh.GetTextureByFace(typ);
 					if (texture != null)
 					{
 						if (scene.IsUseLight == false || light == null)
-							mUserColor = texture.GetPixelColor(uv.X, uv.Y);
+							m_UserColor = texture.GetPixelColor(uv.X, uv.Y);
 						else
-							mUserColor = texture.GetPixelColor(uv.X, uv.Y) * MathUntily.Lerp(lc1, lc2, r3);
+							m_UserColor = texture.GetPixelColor(uv.X, uv.Y) * MathUntily.Lerp(lc1, lc2, r3);
 					}
 				}
 
-				this.mDevice.DrawPoint(tmppos, mUserColor);
+				this.m_Device.DrawPoint(tmppos, m_UserColor);
 			}
 		}
 

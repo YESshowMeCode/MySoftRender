@@ -4,15 +4,15 @@ namespace SoftRender.Render
 {
 	class Clip
 	{
-		private Device mDevice;
-		private List<Vertex> mOutputList;
+		private Device m_Device;
+		private List<Vertex> m_OutputList;
 
 		/// <summary>
 		/// 渲染设备
 		/// </summary>
 		public Device Device
 		{
-			get { return mDevice; }
+			get { return m_Device; }
 		}
 	
 		/// <summary>
@@ -20,13 +20,13 @@ namespace SoftRender.Render
 		/// </summary>
 		public List<Vertex> OutputList
 		{
-			get { return this.mOutputList; }
+			get { return this.m_OutputList; }
 		}
 
 		public Clip(Device device)
 		{
-			this.mOutputList = new List<Vertex>();
-			this.mDevice = device;
+			this.m_OutputList = new List<Vertex>();
+			this.m_Device = device;
 		}
 
 		/// <summary>
@@ -129,7 +129,7 @@ namespace SoftRender.Render
 
 			vertex.Position = pos;
 			vertex.ClipPosition = clipPos;
-			vertex.ScreenPosition = this.mDevice.ViewPort(clipPos);
+			vertex.ScreenPosition = this.m_Device.ViewPort(clipPos);
 			vertex.Normal = normal;
 			vertex.UV = uv;
 			vertex.Color = col;
@@ -199,17 +199,17 @@ namespace SoftRender.Render
 				{
 					if (Inside(s.ClipPosition, face, wMin, wMax))
 					{
-						this.mOutputList.Add(p);
+						this.m_OutputList.Add(p);
 					}
 					else
 					{
-						this.mOutputList.Add(Intersect(s, p, face, wMin, wMax));
-						this.mOutputList.Add(vertexList[i]);
+						this.m_OutputList.Add(Intersect(s, p, face, wMin, wMax));
+						this.m_OutputList.Add(vertexList[i]);
 					}
 				}
 				else if (Inside(s.ClipPosition, face, wMin, wMax))
 				{
-					this.mOutputList.Add(Intersect(s, p, face, wMin, wMax));
+					this.m_OutputList.Add(Intersect(s, p, face, wMin, wMax));
 				}
 				s = vertexList[i];
 			}

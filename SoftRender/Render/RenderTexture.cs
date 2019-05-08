@@ -4,16 +4,16 @@ namespace SoftRender.Render
 {
 	class RenderTexture
 	{
-		private Bitmap mTexture;
-		private int mWidth;
-		private int mHeight;
+		private Bitmap m_Texture;
+		private int m_Width;
+		private int m_Height;
 
 		/// <summary>
 		/// 要渲染的图片的真实数据
 		/// </summary>
 		public Bitmap Texture
 		{
-			get { return mTexture; }
+			get { return m_Texture; }
 		}
 
 		/// <summary>
@@ -25,15 +25,15 @@ namespace SoftRender.Render
 			try
 			{
 				Image img = Image.FromFile(filePath);
-				mWidth = img.Width;
-				mHeight = img.Height;
-				mTexture = new Bitmap(img, mWidth, mHeight);
+				m_Width = img.Width;
+				m_Height = img.Height;
+				m_Texture = new Bitmap(img, m_Width, m_Height);
 			}
 			catch
 			{
-				mWidth = 256;
-				mHeight = 256;
-				mTexture = new Bitmap(mWidth, mHeight);
+				m_Width = 256;
+				m_Height = 256;
+				m_Texture = new Bitmap(m_Width, m_Height);
 				FillTextureWithRed();
 			}
 		}
@@ -43,11 +43,11 @@ namespace SoftRender.Render
 		/// </summary>
 		private void FillTextureWithRed()
 		{
-			for (int i = 0; i < mWidth; i++)
+			for (int i = 0; i < m_Width; i++)
 			{
-				for (int j = 0; j < mHeight; j++)
+				for (int j = 0; j < m_Height; j++)
 				{
-					mTexture.SetPixel(i, j, System.Drawing.Color.Red);
+					m_Texture.SetPixel(i, j, System.Drawing.Color.Red);
 				}
 			}
 		}
@@ -61,11 +61,11 @@ namespace SoftRender.Render
 		public Color3 GetPixelColor(int posX, int posY)
 		{
 			posX = posX > 0 ? posX : 0;
-			posX = posX >= mWidth ? mWidth - 1 : posX;
+			posX = posX >= m_Width ? m_Width - 1 : posX;
 
 			posY = posY > 0 ? posY : 0;
-			posY = posY >= mHeight ? mHeight - 1 : posY;
-			System.Drawing.Color col = mTexture.GetPixel(posX, posY);
+			posY = posY >= m_Height ? m_Height - 1 : posY;
+			System.Drawing.Color col = m_Texture.GetPixel(posX, posY);
 			return new Color3(col.R, col.G, col.B);
 		}
 
@@ -77,14 +77,14 @@ namespace SoftRender.Render
 		/// <returns></returns>
 		public Color3 GetPixelColor(float posXrate, float posYrate)
 		{
-			int posX = (int)(posXrate * (mWidth - 1));
-			int posY = (int)(posYrate * (mHeight - 1));
+			int posX = (int)(posXrate * (m_Width - 1));
+			int posY = (int)(posYrate * (m_Height - 1));
 			posX = posX > 0 ? posX : 0;
-			posX = posX >= mWidth ? mWidth - 1 : posX;
+			posX = posX >= m_Width ? m_Width - 1 : posX;
 
 			posY = posY > 0 ? posY : 0;
-			posY = posY >= mHeight ? mHeight - 1 : posY;
-			System.Drawing.Color col = mTexture.GetPixel(posX, posY);
+			posY = posY >= m_Height ? m_Height - 1 : posY;
+			System.Drawing.Color col = m_Texture.GetPixel(posX, posY);
 			return new Color3(col.R, col.G, col.B);
 		}
 

@@ -103,22 +103,22 @@ namespace SoftRender
             m_Cube.Faces = new Face[] {
 				// 正面
 				new Face(2, 5, 8, FaceTypes.NEAR),
-				new Face(2, 8, 11, FaceTypes.NEAR),
+                new Face(2, 8, 11, FaceTypes.NEAR),
 				// 右面
 				new Face(4, 16, 7, FaceTypes.RIGHT),
-				new Face(16, 19, 7, FaceTypes.RIGHT),
+                new Face(16, 19, 7, FaceTypes.RIGHT),
 				// 左面
 				new Face(13, 1, 10, FaceTypes.LEFT),
-				new Face(13, 10, 22, FaceTypes.LEFT),
+                new Face(13, 10, 22, FaceTypes.LEFT),
 				// 背面
 				new Face(17, 14, 23, FaceTypes.FAR),
-				new Face(17, 23, 20, FaceTypes.FAR),
+                new Face(17, 23, 20, FaceTypes.FAR),
 				// 上面
 				new Face(9, 6, 18, FaceTypes.TOP),
-				new Face(9, 18, 21, FaceTypes.TOP),
+                new Face(9, 18, 21, FaceTypes.TOP),
 				// 下面
 				new Face(12, 15, 3, FaceTypes.BUTTOM),
-				new Face(12, 3, 0, FaceTypes.BUTTOM)
+                new Face(12, 3, 0, FaceTypes.BUTTOM)
 			};
             RenderTexture[] textures = new RenderTexture[6];
             for (int i = 0; i < 6; i++)
@@ -168,30 +168,20 @@ namespace SoftRender
         {
             switch (keyData)
             {
-                case Keys.NumPad0:
                 case Keys.Q:
                     m_Device.RenderMode = RenderMode.WIREFRAME;
                     break;
-                case Keys.NumPad1:
                 case Keys.W:
                     m_Device.RenderMode = RenderMode.VERTEXCOLOR;
                     break;
-                case Keys.NumPad2:
                 case Keys.E:
                     m_Device.RenderMode = RenderMode.TEXTURED;
                     break;
-                case Keys.NumPad3:
                 case Keys.R:
                     m_Device.RenderMode = RenderMode.CUBETEXTURED;
                     break;
                 case Keys.F1:
-                    Light light = new Light(new Vector4(5, 5, -5, 1), new Color3(200, 255, 255));
-                    m_Scene.AddLight(light);
-                    m_Scene.IsUseLight = true;
-                    break;
-                case Keys.F2:
-                    m_Scene.DelLight();
-                    m_Scene.IsUseLight = false;
+                    OpenLight();
                     break;
                 case Keys.Escape:
                     Close();
@@ -202,6 +192,24 @@ namespace SoftRender
                 this.Invalidate();
 
             return true;
+        }
+
+        /// <summary>
+        /// 光源开关
+        /// </summary>
+        private void OpenLight()
+        {
+            if (m_Scene.IsUseLight)
+            {
+                m_Scene.DelLight();
+                m_Scene.IsUseLight = false;
+            }
+            else
+            {
+                Light light = new Light(new Vector4(5, 5, -5, 1), new Color3(200, 255, 255));
+                m_Scene.AddLight(light);
+                m_Scene.IsUseLight = true;
+            }
         }
 
         /// <summary>

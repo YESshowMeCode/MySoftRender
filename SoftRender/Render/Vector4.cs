@@ -103,7 +103,7 @@ namespace SoftRender.Render
 		}
 
 		/// <summary>
-		/// 叉乘
+		/// 向量叉乘等到一个垂直于a和b的向量
 		/// </summary>
 		/// <param name="a"></param>
 		/// <param name="b"></param>
