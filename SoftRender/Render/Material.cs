@@ -5,6 +5,36 @@ namespace SoftRender.Render
 	{
 		private float m_AmbientStregth;
 		private Color3 m_Diffuse;
+        private Color3 m_Emissive;
+        private Color3 m_Specular;
+        private float m_shininess;
+
+        /// <summary>
+        /// 环境光颜色
+        /// </summary>
+        public Color3 Emssive
+        {
+            get { return m_Emissive; }
+            set { m_Emissive = value; }
+        }
+
+        /// <summary>
+        /// 高光反射光颜色
+        /// </summary>
+        public Color3 Specular
+        {
+            get { return m_Specular; }
+            set { m_Specular = value; }
+        }
+
+        /// <summary>
+        /// 材质光泽度
+        /// </summary>
+        public float Shininess
+        {
+            get { return m_shininess; }
+            set { m_shininess = value; }
+        }
 
 		/// <summary>
 		/// 环境光系数
@@ -16,7 +46,7 @@ namespace SoftRender.Render
 		}
 
 		/// <summary>
-		/// 光颜色
+		/// 漫反射光颜色
 		/// </summary>
 		public Color3 Diffuse
 		{
@@ -29,10 +59,13 @@ namespace SoftRender.Render
 		/// </summary>
 		/// <param name="ambient"></param>
 		/// <param name="color"></param>
-		public Material(float ambient, Color3 color)
+		public Material(float ambient, Color3 diffuseColor,Color3 emissiveColor,Color3 specularColor,float shininess)
 		{
 			m_AmbientStregth = ambient;
-			m_Diffuse = color;
+            m_Diffuse = diffuseColor;
+            m_shininess = shininess;
+            m_Emissive = emissiveColor;
+            m_Specular = specularColor;
 		}
 	}
 }

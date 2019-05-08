@@ -246,20 +246,6 @@ namespace SoftRender.Render
 				scene.Render(this, viewMat, proMat);
 		}
 
-		/// <summary>
-		/// 获取要画的三角形列表
-		/// </summary>
-		/// <param name="vertex"></param>
-		/// <returns></returns>
-		public List<Triangle> GetDrawTriangleList(List<Vertex> vertex)
-		{
-			List<Triangle> t = new List<Triangle>();
-			for (int i = 0; i < vertex.Count - 2; i++)
-			{
-				t.Add(new Triangle(vertex[0], vertex[i + 1], vertex[i + 2]));
-			}
-			return t;
-		}
 
 		/// <summary>
 		/// 齐次坐标系转换为屏幕坐标显示

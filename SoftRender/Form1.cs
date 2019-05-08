@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using SoftRender.Render;
 using System.Drawing.Imaging;
+using System.Timers;
+
 
 namespace SoftRender
 {
@@ -28,6 +30,7 @@ namespace SoftRender
         private Matrix4x4 m_ProjectionMat;
         private Mesh m_Cube;
         private bool m_IsMouseLeftDown = false;
+        private float timer = 0;
         private Vector2 m_MouseLeftPos = new Vector2();
 
 
@@ -145,12 +148,34 @@ namespace SoftRender
             m_Graphics.DrawImage(this.m_Bmp, new Rectangle(0, 0, m_Bmp.Width, m_Bmp.Height));
         }
 
+        private void OnTimerLoad(object sender, EventArgs g)
+        {
+            System.Timers.Timer mainTimer = new System.Timers.Timer(1000 / 60f);
+            mainTimer.Elapsed += new ElapsedEventHandler(Tick);
+            mainTimer.AutoReset = true;
+            mainTimer.Enabled = true;
+            mainTimer.Start();
+        }
+
+         private void Tick(object sender, EventArgs e)
+        {
+            timer = 0.5f;
+            float dx = timer;
+            float dy = timer;
+            m_Cube.Transform = m_Cube.Transform * Matrix4x4.RotateY(dx);
+            m_Cube.Transform = m_Cube.Transform * Matrix4x4.RotateX(dy);
+            this.Invalidate();
+        }
+
+    
+        
+
         /// <summary>
         /// 初始化
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="g"></param>
-        private void OnLoad(object sender, EventArgs g)
+        private void OnKeyboardLoad(object sender, EventArgs g)
         {
             this.MouseWheel += new MouseEventHandler(OnMouseWheel);
             this.MouseMove += new MouseEventHandler(OnMouseMove);

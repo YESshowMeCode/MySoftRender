@@ -75,7 +75,7 @@ namespace SoftRender.Render
 		public Mesh(string name)
 		{
 			m_Name = name;
-			m_Material = new Material(0.9f, new Color3(255, 255, 255));
+            m_Material = new Material(0.9f, new Color3(255, 255, 255), new Color3(0, 0, 128), new Color3(0, 0, 0), 0.5f);
 			m_Transform = new Matrix4x4(1);
 		}
 
@@ -119,22 +119,31 @@ namespace SoftRender.Render
 		}
 	
 		/// <summary>
-		/// 计算顶点所受的光照的颜色
+        /// 实现了“基础光照模型”，在世界空间进行顶点光照处理
 		/// </summary>
 		/// <param name="position"></param>
 		/// <param name="normal"></param>
 		/// <param name="light"></param>
 		/// <returns></returns>
-		public Color3 GetLightColor(Vector4 position, Vector4 normal, Light light)
+		public Color3 GetLightColor(Vector4 position, Vector4 normal, Light light ,Vector4 cameraPosition)
 		{
 			// 环境光
 			Color3 ambient = light.Color * m_Material.AmbientStregth;
+            //自发光
+            Color3 emissive = m_Material.Emssive;
 			// 漫反射
 			Vector4 nor = normal * m_Transform;
 			Vector4 lightdir = (light.Position - position).Normalize();
 			float diff = Math.Max(Vector4.Dot(normal.Normalize(), lightdir), 0);
 			Color3 diffuse = m_Material.Diffuse * diff;
-			return ambient + diffuse;
+
+            Vector4 viewDir = (cameraPosition - position).Normalize();
+            Vector4 h = (viewDir + lightdir).Normalize();
+            float specular = (float)System.Math.Pow(Clamp(Vector4.Dot(h, normal)), m_Material.Shininess);
+
+            Color3 specularColor = m_Material.Specular * specular * light.Color;//镜面高光
+
+            return ambient + diffuse + specularColor + emissive;
 		}
 
 		/// <summary>
@@ -160,9 +169,9 @@ namespace SoftRender.Render
 
 				if (scene.IsUseLight && scene.Lights != null)
 				{
-					verA2.LightColor = GetLightColor(verA.Position, verA.Normal, scene.Lights);
-					verB2.LightColor = GetLightColor(verA.Position, verB.Normal, scene.Lights);
-					verC2.LightColor = GetLightColor(verA.Position, verC.Normal, scene.Lights);
+                    verA2.LightColor = GetLightColor(verA.Position, verA.Normal, scene.Lights, scene.Camera.Position);
+                    verB2.LightColor = GetLightColor(verA.Position, verB.Normal, scene.Lights, scene.Camera.Position);
+                    verC2.LightColor = GetLightColor(verA.Position, verC.Normal, scene.Lights, scene.Camera.Position);
 				}
 
 				// 转换到齐次坐标
@@ -241,5 +250,19 @@ namespace SoftRender.Render
 			}
 		}
 
+
+        /// <summary>
+        /// [0, 1]的范围值
+        /// </summary>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        public float Clamp(float g)
+        {
+            if (g.CompareTo(0) < 0)
+                return 0;
+            else if (g.CompareTo(1) > 0)
+                return 1;
+            return g;
+        }
 	}
 }

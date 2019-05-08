@@ -59,5 +59,19 @@ namespace SoftRender.Render
             byte b = (byte)(c1.B + (c2.B - c1.B) * k);
             return new Color3(r, g, b);
         }
+
+        /// <summary>
+        /// [0, 1]的范围值
+        /// </summary>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        public float Clamp(float g)
+        {
+            if (g.CompareTo(0) < 0)
+                return 0;
+            else if (g.CompareTo(1) > 0)
+                return 1;
+            return g;
+        }
     }
 }

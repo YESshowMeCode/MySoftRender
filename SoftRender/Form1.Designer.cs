@@ -34,7 +34,8 @@
             this.ClientSize = new System.Drawing.Size(784, 562);
             this.Name = "SoftRender";
             this.Text = "SoftRender";
-            this.Load += new System.EventHandler(this.OnLoad);
+            this.Load += new System.EventHandler(this.OnKeyboardLoad);
+            this.Load += new System.EventHandler(this.OnTimerLoad);
             this.ResumeLayout(false);
 
         }
