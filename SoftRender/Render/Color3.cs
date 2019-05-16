@@ -9,6 +9,8 @@ namespace SoftRender.Render
         public byte G;
         public byte B;
 
+
+
         /// <summary>
         /// 用rgb构造一个颜色
         /// </summary>

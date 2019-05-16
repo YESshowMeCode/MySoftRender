@@ -110,6 +110,7 @@ namespace SoftRender.Render
 			}
 			else
 			{
+
 				int index = (int)types;
 				if (m_TextureMaps.Length == 6 && index >= 0 && index < 6)
 					return m_TextureMaps[index];
