@@ -14,7 +14,7 @@
 -相机控制  
 
 # 2.代码框架
-、、、  
+```
 /01 Render  
     -01_01 Camera  
     -01_02 Clip  
@@ -36,7 +36,7 @@
     -01_18 Vertex  
 /02 Form1  
 /03 SoftRender    
-、、、  
+```  
 
 # 3.使用方法
 
@@ -45,5 +45,5 @@
  - Git
 
 ## 3.2 下载代码
-、、、bash  
+```
 git clone git@github.com:YESshowMeCode/MySoftRender.git  
