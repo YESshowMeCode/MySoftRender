@@ -47,3 +47,6 @@
 ## 3.2 下载代码
 ```
 git clone git@github.com:YESshowMeCode/MySoftRender.git  
+
+# 4.效果图    
+![image](https://github.com/YESshowMeCode/MySoftRender/blob/master/SoftRender/Texture/SoftRender.gif)
