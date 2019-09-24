@@ -126,7 +126,7 @@ namespace SoftRender
             RenderTexture[] textures = new RenderTexture[6];
             for (int i = 0; i < 6; i++)
             {
-                string path = "../../Texture/env2.bmp";
+                string path = "../../Texture/env4.bmp";
                 textures[i] = new RenderTexture(path);
             }
             m_Cube.TextureMaps = textures;
